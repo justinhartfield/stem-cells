@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knee Stem Cell Therapy Cost Guide | OrthoFinder</title>
+    <!-- Google Fonts: Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        price: {
+                            light: '#0ea5e9',
+                            dark: '#0369a1',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .gradient-bg {
+            background: radial-gradient(circle at top right, #e0effe 0%, #f8fafc 40%, #ffffff 100%);
+        }
+
+        .price-gradient-bar {
+            background: linear-gradient(to right, #bae0fd, #2563eb, #1e3a8a);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="font-sans antialiased text-slate-900 gradient-bg min-h-screen flex flex-col" x-data="costGuideApp()">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2 cursor-pointer" @click="window.location.href='/'">
+                    <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight text-slate-900">OrthoFinder<span class="text-brand-600">.</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-semibold text-slate-600">
+                    <a href="#" class="text-brand-600 border-b-2 border-brand-600">Cost Guides</a>
+                    <a href="#" class="hover:text-brand-600 transition">Conditions</a>
+                    <a href="#" class="hover:text-brand-600 transition">Locations</a>
+                    <a href="#" class="hover:text-brand-600 transition">Find Clinics</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="text-sm font-bold text-brand-700 bg-brand-50 px-4 py-2 rounded-full hover:bg-brand-100 transition">Clinic Portal</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        
+        <!-- Breadcrumb & Header -->
+        <section class="pt-8 pb-12">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <nav class="flex mb-4 text-xs font-bold uppercase tracking-wider text-slate-400 gap-2 items-center">
+                    <a href="#" class="hover:text-brand-600">Home</a>
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg>
+                    <a href="#" class="hover:text-brand-600">Cost Guides</a>
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg>
+                    <span class="text-brand-600">Knee Therapy</span>
+                </nav>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+                    Knee Stem Cell Injection <br class="hidden md:block">
+                    <span class="text-brand-600">Cost Guide & Price Estimates</span>
+                </h1>
+                <p class="text-lg text-slate-600 max-w-3xl leading-relaxed">
+                    How much does stem cell therapy for knees actually cost? We analyzed data from 500+ clinics to provide realistic price ranges based on cell source, location, and procedure complexity.
+                </p>
+            </div>
+        </section>
+
+        <!-- National Price Range Bar -->
+        <section class="pb-16">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-white rounded-[2rem] shadow-xl shadow-brand-100/50 border border-slate-100 p-8 md:p-12 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-6 opacity-10">
+                        <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"></path></svg>
+                    </div>
+
+                    <h2 class="text-xl font-bold text-slate-900 mb-10 flex items-center gap-2">
+                        <span class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white text-sm">
+                            $
+                        </span>
+                        National Estimated Price Range
+                    </h2>
+
+                    <div class="relative pt-12 pb-8">
+                        <!-- The Bar -->
+                        <div class="h-4 w-full bg-slate-100 rounded-full overflow-hidden flex">
+                            <div class="h-full price-gradient-bar w-full"></div>
+                        </div>
+
+                        <!-- Markers -->
+                        <div class="absolute top-0 left-0 w-full h-full pointer-events-none">
+                            <!-- Min -->
+                            <div class="absolute left-[15%] -top-4 text-center">
+                                <div class="w-0.5 h-20 bg-slate-200 mx-auto mb-2"></div>
+                                <span class="block text-[10px] font-bold text-slate-400 uppercase">Min Reported</span>
+                                <span class="text-xl font-extrabold text-slate-700">$2,900</span>
+                            </div>
+                            <!-- Median -->
+                            <div class="absolute left-1/2 -translate-x-1/2 -top-12 text-center">
+                                <div class="bg-brand-600 text-white px-3 py-1 rounded-full text-xs font-bold mb-2 shadow-lg shadow-brand-200">National Median</div>
+                                <div class="w-1 h-28 bg-brand-600 mx-auto mb-2"></div>
+                                <span class="text-3xl font-black text-brand-600">$4,850</span>
+                                <span class="block text-[10px] font-bold text-slate-400 uppercase mt-1">Single Knee / BMAC</span>
+                            </div>
+                            <!-- Max -->
+                            <div class="absolute right-[10%] -top-4 text-center">
+                                <div class="w-0.5 h-20 bg-slate-200 mx-auto mb-2"></div>
+                                <span class="block text-[10px] font-bold text-slate-400 uppercase">Max (Premium)</span>
+                                <span class="text-xl font-extrabold text-slate-700">$8,200+</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-slate-50">
+                        <div class="flex items-start gap-3">
+                            <div class="w-5 h-5 text-green-500 shrink-0 mt-0.5">
+                                <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold">Standard Inclusion</h4>
+                                <p class="text-xs text-slate-500 mt-1 leading-relaxed">Most quotes include extraction, processing, and the injection procedure itself.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-5 h-5 text-amber-500 shrink-0 mt-0.5">
+                                <svg fill="currentColor" viewBox="0 0 20 20"><path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold">Variable Costs</h4>
+                                <p class="text-xs text-slate-500 mt-1 leading-relaxed">Imaging (Ultrasound vs Fluoroscopy) and sedation can add $300-$1,200 to total.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-5 h-5 text-brand-500 shrink-0 mt-0.5">
+                                <svg fill="currentColor" viewBox="0 0 20 20"><path d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold">Insurance Status</h4>
+                                <p class="text-xs text-slate-500 mt-1 leading-relaxed">Typically NOT covered by Medicare/PPO. Always request a written fee schedule.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Factors & Pricing Breakdown -->
+        <section class="py-16 bg-slate-900 text-white overflow-hidden">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-12">
+                    <h2 class="text-3xl font-extrabold mb-4">What Drives Knee Treatment Costs?</h2>
+                    <p class="text-slate-400">Not all "stem cell" treatments are the same. These three factors primarily dictate the final bill.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-slate-800 p-8 rounded-3xl border border-slate-700 relative">
+                        <div class="absolute -top-4 -right-4 w-12 h-12 bg-sky-500 rounded-2xl flex items-center justify-center font-bold shadow-lg">1</div>
+                        <h3 class="text-lg font-bold mb-4">Cell Source</h3>
+                        <div class="space-y-4">
+                            <div class="p-3 bg-slate-900/50 rounded-xl">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-sm font-bold text-sky-400">BMAC</span>
+                                    <span class="text-xs text-slate-500">$$$</span>
+                                </div>
+                                <p class="text-[11px] text-slate-400">Bone Marrow Aspirate Concentrate. Considered the orthopedic gold standard in the US.</p>
+                            </div>
+                            <div class="p-3 bg-slate-900/50 rounded-xl">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-sm font-bold text-sky-400">Adipose</span>
+                                    <span class="text-xs text-slate-500">$$</span>
+                                </div>
+                                <p class="text-[11px] text-slate-400">Fat-derived SVF. Often slightly cheaper processing than bone marrow.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800 p-8 rounded-3xl border border-slate-700 relative">
+                        <div class="absolute -top-4 -right-4 w-12 h-12 bg-brand-600 rounded-2xl flex items-center justify-center font-bold shadow-lg">2</div>
+                        <h3 class="text-lg font-bold mb-4">Procedure Scope</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between border-b border-slate-700 pb-2">
+                                <span class="text-sm text-slate-300">Unilateral (1 Knee)</span>
+                                <span class="text-sm font-bold text-white">$3,500+</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-700 pb-2">
+                                <span class="text-sm text-slate-300">Bilateral (2 Knees)</span>
+                                <span class="text-sm font-bold text-white">$5,500+</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-700 pb-2">
+                                <span class="text-sm text-slate-300">Booster PRP Inc.</span>
+                                <span class="text-sm font-bold text-white">+$500</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800 p-8 rounded-3xl border border-slate-700 relative">
+                        <div class="absolute -top-4 -right-4 w-12 h-12 bg-indigo-500 rounded-2xl flex items-center justify-center font-bold shadow-lg">3</div>
+                        <h3 class="text-lg font-bold mb-4">Location Type</h3>
+                        <div class="space-y-4">
+                            <div class="flex flex-col gap-1">
+                                <span class="text-sm font-bold">Private Specialist Clinic</span>
+                                <p class="text-[11px] text-slate-500 leading-relaxed">Typically median pricing. Focus on high-volume orthopedic care.</p>
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <span class="text-sm font-bold">University Hospital</span>
+                                <p class="text-[11px] text-slate-500 leading-relaxed">Often highest costs due to facility fees and research overhead.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- City Price Table -->
+        <section class="py-20 bg-white">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row items-end justify-between mb-8 gap-4">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-slate-900">Price by Major Metro Area</h2>
+                        <p class="text-slate-500 text-sm mt-1">Average reported prices for single-knee treatment (BMAC source).</p>
+                    </div>
+                    <div class="bg-slate-50 p-1 rounded-xl border border-slate-200 flex text-xs font-bold">
+                        <button class="px-4 py-2 bg-white shadow-sm rounded-lg text-brand-600">Domestic US</button>
+                        <button class="px-4 py-2 text-slate-500 hover:text-slate-700 transition">International</button>
+                    </div>
+                </div>
+
+                <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-200">
+                                <th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">City / Region</th>
+                                <th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">Avg. Clinic Quote</th>
+                                <th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">Market Supply</th>
+                                <th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-slate-400 text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <template x-for="city in cityPrices" :key="city.name">
+                                <tr class="hover:bg-brand-50/30 transition-colors group">
+                                    <td class="px-6 py-4">
+                                        <span class="font-bold text-slate-700" x-text="city.name"></span>
+                                        <span class="block text-[10px] text-slate-400 font-medium" x-text="city.state"></span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="font-bold text-brand-600" x-text="city.price"></span>
+                                        <span class="inline-block ml-2 text-[10px] px-1.5 py-0.5 bg-green-100 text-green-700 rounded" x-show="city.trend === 'down'">-4%</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex gap-1">
+                                            <template x-for="i in 5">
+                                                <div :class="i <= city.supply ? 'bg-brand-400' : 'bg-slate-200'" class="w-1.5 h-3 rounded-full"></div>
+                                            </template>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <button class="text-xs font-bold text-slate-400 group-hover:text-brand-600 flex items-center gap-1 justify-end ml-auto transition">
+                                            View Clinics <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-12">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-gradient-to-br from-brand-600 to-sky-600 rounded-[2.5rem] p-10 md:p-16 text-center text-white relative overflow-hidden shadow-2xl shadow-brand-200">
+                    <div class="relative z-10">
+                        <h2 class="text-3xl md:text-4xl font-extrabold mb-6">Find Verified Knee Clinics Near You</h2>
+                        <p class="text-brand-100 text-lg mb-10 max-w-2xl mx-auto">
+                            Stop guessing. Get connected with orthopedic specialists who publish their price ranges upfront. 
+                        </p>
+                        
+                        <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+                            <div class="w-full md:w-80 bg-white rounded-2xl p-2 flex items-center shadow-lg">
+                                <div class="px-3 text-slate-400">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                </div>
+                                <input type="text" placeholder="Enter Zip or City" class="w-full bg-transparent text-slate-900 font-bold focus:outline-none placeholder:text-slate-300">
+                            </div>
+                            <button class="w-full md:w-auto px-10 py-4 bg-slate-900 text-white rounded-2xl font-extrabold hover:bg-slate-800 transition transform hover:scale-105 active:scale-95 shadow-xl">
+                                Search Knee Clinics
+                            </button>
+                        </div>
+                        
+                        <div class="mt-8 flex flex-wrap justify-center gap-6 text-sm text-brand-100 font-medium">
+                            <span class="flex items-center gap-2"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> No Referral Required</span>
+                            <span class="flex items-center gap-2"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> Verified Price Badges</span>
+                            <span class="flex items-center gap-2"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> Direct Physician Call</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Abstract circles for bg -->
+                    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-brand-800/20 rounded-full blur-3xl"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Footer / Disclosures -->
+    <footer class="bg-white border-t border-slate-200 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="md:col-span-1">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight text-slate-900">OrthoFinder</span>
+                    </div>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        The web's most trusted database for regenerative orthopedic therapy pricing and clinic comparison.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="font-bold text-slate-900 mb-4 text-sm uppercase tracking-widest">Treatment Costs</h5>
+                    <ul class="space-y-2 text-sm text-slate-500">
+                        <li><a href="#" class="hover:text-brand-600">Knee Stem Cell Cost</a></li>
+                        <li><a href="#" class="hover:text-brand-600">Back & Spine Cost</a></li>
+                        <li><a href="#" class="hover:text-brand-600">Shoulder Injection Cost</a></li>
+                        <li><a href="#" class="hover:text-brand-600">Hip Osteoarthritis Cost</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-slate-900 mb-4 text-sm uppercase tracking-widest">Top Locations</h5>
+                    <ul class="space-y-2 text-sm text-slate-500">
+                        <li><a href="#" class="hover:text-brand-600">Clinics in Los Angeles</a></li>
+                        <li><a href="#" class="hover:text-brand-600">Clinics in Houston</a></li>
+                        <li><a href="#" class="hover:text-brand-600">Clinics in Miami</a></li>
+                        <li><a href="#" class="hover:text-brand-600">Clinics in Mexico</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-slate-900 mb-4 text-sm uppercase tracking-widest">Legal</h5>
+                    <ul class="space-y-2 text-sm text-slate-500">
+                        <li><a href="#" class="hover:text-brand-600">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-brand-600">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-brand-600">Clinic Verification</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Mandatory Compliance Footer -->
+            <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 mb-8">
+                <div class="flex items-start gap-4 text-[11px] text-slate-400 leading-relaxed uppercase tracking-wider">
+                    <svg class="w-10 h-10 text-slate-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <div>
+                        <p class="mb-2"><strong>Disclaimer:</strong> OrthoFinder is an information directory only. We do not provide medical advice, diagnosis, or treatment recommendations. All costs are estimated based on clinic reports and historical data. Stem cell therapies for orthopedic use vary in FDA status; always consult with a licensed physician regarding the regulatory status and safety of any procedure.</p>
+                        <p>No outcomes are guaranteed. Price ranges do not include airfare, lodging, or ancillary testing unless specified.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-slate-400 text-xs border-t border-slate-100 pt-8">
+                <p>&copy; 2023 OrthoFinder Inc. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-slate-600">Twitter</a>
+                    <a href="#" class="hover:text-slate-600">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function costGuideApp() {
+            return {
+                cityPrices: [
+                    { name: 'Los Angeles', state: 'California', price: '$5,800', supply: 5, trend: 'none' },
+                    { name: 'Houston', state: 'Texas', price: '$4,950', supply: 4, trend: 'down' },
+                    { name: 'Miami', state: 'Florida', price: '$6,200', supply: 5, trend: 'none' },
+                    { name: 'Austin', state: 'Texas', price: '$5,400', supply: 3, trend: 'none' },
+                    { name: 'Phoenix', state: 'Arizona', price: '$4,100', supply: 4, trend: 'down' },
+                    { name: 'Denver', state: 'Colorado', price: '$5,150', supply: 3, trend: 'none' },
+                    { name: 'Dallas', state: 'Texas', price: '$4,800', supply: 4, trend: 'none' },
+                    { name: 'Tijuana', state: 'Mexico (Tourism)', price: '$2,850', supply: 5, trend: 'down' }
+                ]
+            }
+        }
+    </script>
+</body>
+</html>

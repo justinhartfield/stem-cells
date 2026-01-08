@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Cost Index | OrthoFinder Stem Cell Database</title>
+    <!-- Google Fonts: Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        price: {
+                            light: '#0ea5e9',
+                            dark: '#0369a1',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .gradient-bg {
+            background: radial-gradient(circle at top right, #e0effe 0%, #f8fafc 40%, #ffffff 100%);
+        }
+
+        .price-bar-bg {
+            background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 100%);
+        }
+
+        .price-range-fill {
+            background: linear-gradient(90deg, #0ea5e9 0%, #2563eb 100%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .table-row-hover:hover {
+            background-color: rgba(37, 99, 235, 0.02);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-slate-900 gradient-bg min-h-screen flex flex-col" x-data="costIndexApp()">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight text-slate-900">OrthoFinder<span class="text-brand-600">.</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-semibold text-slate-600">
+                    <a href="#" class="text-brand-600 border-b-2 border-brand-600">Cost Index</a>
+                    <a href="#" class="hover:text-brand-600 transition">Conditions</a>
+                    <a href="#" class="hover:text-brand-600 transition">Locations</a>
+                    <a href="#" class="hover:text-brand-600 transition">Find Clinics</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="text-sm font-bold text-brand-700 bg-brand-50 px-4 py-2 rounded-full hover:bg-brand-100 transition">Clinic Login</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow py-8 md:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Breadcrumbs -->
+            <nav class="flex mb-8 text-xs font-bold uppercase tracking-widest text-slate-400 gap-2">
+                <a href="#" class="hover:text-brand-600">Home</a>
+                <span>/</span>
+                <span class="text-slate-600">National Cost Index</span>
+            </nav>
+
+            <!-- Page Header -->
+            <div class="mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 text-white text-[10px] font-bold uppercase tracking-widest mb-4">
+                    <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                    Verified Data Report: Q4 2023
+                </div>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+                    National Stem Cell <span class="text-brand-600">Cost Index</span>
+                </h1>
+                <p class="text-lg text-slate-600 max-w-3xl">
+                    Comprehensive median pricing across 10 orthopedic categories. These ranges represent typical out-of-pocket costs for cash-pay patients in the United States.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Main Index Table (Col 8) -->
+                <div class="lg:col-span-8">
+                    <div class="bg-white rounded-3xl shadow-xl shadow-brand-100/50 border border-slate-100 overflow-hidden">
+                        <!-- Table Toolbar -->
+                        <div class="p-6 border-b border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4 bg-slate-50/50">
+                            <div class="relative w-full md:w-72">
+                                <input type="text" x-model="search" placeholder="Search conditions..." class="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all outline-none">
+                                <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-bold text-slate-400 uppercase">Sort By:</span>
+                                <select x-model="sortBy" class="text-sm font-semibold text-slate-700 bg-transparent border-none focus:ring-0 cursor-pointer">
+                                    <option value="name">Condition Name</option>
+                                    <option value="median">Median Price</option>
+                                    <option value="clinics">Clinic Volume</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Header Labels (Desktop) -->
+                        <div class="hidden md:grid grid-cols-12 px-8 py-4 bg-white border-b border-slate-100 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                            <div class="col-span-4">Condition & Sample Size</div>
+                            <div class="col-span-2 text-center">National Low</div>
+                            <div class="col-span-3 text-center">Median Benchmark</div>
+                            <div class="col-span-2 text-center">National High</div>
+                            <div class="col-span-1 text-right">Trend</div>
+                        </div>
+
+                        <!-- Table Rows -->
+                        <div class="divide-y divide-slate-50">
+                            <template x-for="item in filteredPricing" :key="item.id">
+                                <div class="px-6 md:px-8 py-6 table-row-hover transition-colors group cursor-pointer">
+                                    <div class="grid grid-cols-1 md:grid-cols-12 items-center gap-4 md:gap-0">
+                                        <!-- Condition Info -->
+                                        <div class="col-span-1 md:col-span-4 flex items-center gap-4">
+                                            <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-all">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-html="item.icon"></svg>
+                                            </div>
+                                            <div>
+                                                <h3 class="font-bold text-slate-900 group-hover:text-brand-600 transition-colors" x-text="item.name"></h3>
+                                                <span class="text-[10px] text-slate-400 font-bold uppercase" x-text="item.clinics + ' Reports Indexed'"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Prices -->
+                                        <div class="col-span-1 md:col-span-2 text-center">
+                                            <div class="md:hidden text-[10px] font-bold text-slate-400 uppercase mb-1">Low</div>
+                                            <span class="text-sm font-bold text-slate-500" x-text="'$' + item.low.toLocaleString()"></span>
+                                        </div>
+
+                                        <div class="col-span-1 md:col-span-3 text-center">
+                                            <div class="md:hidden text-[10px] font-bold text-slate-400 uppercase mb-1">Median</div>
+                                            <div class="inline-flex flex-col items-center">
+                                                <span class="text-xl font-extrabold text-slate-900 leading-none mb-1" x-text="'$' + item.median.toLocaleString()"></span>
+                                                <div class="w-24 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                                    <div class="h-full price-range-fill rounded-full" :style="'width: ' + ((item.median - item.low) / (item.high - item.low) * 100) + '%'"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-span-1 md:col-span-2 text-center">
+                                            <div class="md:hidden text-[10px] font-bold text-slate-400 uppercase mb-1">High</div>
+                                            <span class="text-sm font-bold text-slate-500" x-text="'$' + item.high.toLocaleString()"></span>
+                                        </div>
+
+                                        <!-- Trend Indicator -->
+                                        <div class="col-span-1 md:col-span-1 text-right flex md:block items-center justify-between">
+                                            <div class="md:hidden text-[10px] font-bold text-slate-400 uppercase">Trend</div>
+                                            <div class="inline-flex items-center gap-1" :class="item.trend === 'up' ? 'text-rose-500' : 'text-emerald-500'">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" :class="item.trend === 'up' ? 'rotate-0' : 'rotate-180'">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                                </svg>
+                                                <span class="text-[10px] font-extrabold" x-text="item.trendPercent + '%'"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Mobile Expanded Details (Simplified) -->
+                                    <div class="mt-4 flex gap-2 overflow-x-auto pb-2 no-scrollbar md:hidden">
+                                        <span class="px-2 py-1 bg-brand-50 text-brand-700 text-[9px] font-bold rounded uppercase whitespace-nowrap">FDA Compliant Labs</span>
+                                        <span class="px-2 py-1 bg-slate-100 text-slate-600 text-[9px] font-bold rounded uppercase whitespace-nowrap">Image Guided</span>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Table Footer -->
+                        <div class="p-6 bg-slate-50 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
+                            <p class="text-xs text-slate-500 font-medium">Showing 10 of 10 major orthopedic conditions</p>
+                            <button class="flex items-center gap-2 text-brand-600 font-bold text-sm hover:underline">
+                                Request Full PDF Report (Free)
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar: Price Drivers (Col 4) -->
+                <aside class="lg:col-span-4 space-y-6">
+                    <!-- Price Driver Component -->
+                    <div class="bg-slate-900 rounded-3xl p-8 text-white relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg>
+                        </div>
+                        <h2 class="text-xl font-extrabold mb-6 relative z-10">Why prices vary?</h2>
+                        <div class="space-y-6 relative z-10">
+                            <template x-for="driver in priceDrivers" :key="driver.title">
+                                <div class="flex gap-4">
+                                    <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center shrink-0 border border-white/5">
+                                        <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-html="driver.icon"></svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-bold text-white mb-1" x-text="driver.title"></h4>
+                                        <p class="text-xs text-slate-400 leading-relaxed" x-text="driver.desc"></p>
+                                        <div class="mt-2 flex items-center gap-2">
+                                            <span class="text-[10px] font-bold text-sky-400 uppercase">Impact:</span>
+                                            <span class="text-[10px] font-bold bg-sky-500/20 text-sky-300 px-2 py-0.5 rounded" x-text="driver.impact"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                        <div class="mt-8 pt-8 border-t border-white/10">
+                            <button class="w-full py-4 bg-brand-600 hover:bg-brand-700 text-white rounded-2xl font-bold text-sm transition shadow-lg shadow-brand-900/50">
+                                Find a Clinic in Your Budget
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Sidebar Card -->
+                    <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
+                        <h3 class="font-extrabold text-slate-900 mb-4">Pricing Methodology</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed mb-4">
+                            Our data is normalized using a weighted average of three primary sources:
+                        </p>
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-2 text-xs font-bold text-slate-700">
+                                <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                Direct Clinic Fee Sheets (40%)
+                            </li>
+                            <li class="flex items-center gap-2 text-xs font-bold text-slate-700">
+                                <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                Patient-Reported Receipts (35%)
+                            </li>
+                            <li class="flex items-center gap-2 text-xs font-bold text-slate-700">
+                                <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                Industry Surveys (25%)
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="bg-white border-t border-slate-200 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="md:col-span-1">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight text-slate-900">OrthoFinder</span>
+                    </div>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        The web's most trusted database for regenerative orthopedic therapy pricing and clinic comparison.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="font-bold text-slate-900 mb-4">Treatment Costs</h5>
+                    <ul class="space-y-2 text-sm text-slate-500">
+                        <li><a href="#" class="hover:text-brand-600 transition">Knee Stem Cell Cost</a></li>
+                        <li><a href="#" class="hover:text-brand-600 transition">Back & Spine Cost</a></li>
+                        <li><a href="#" class="hover:text-brand-600 transition">Shoulder Injection Cost</a></li>
+                        <li><a href="#" class="hover:text-brand-600 transition">Hip Osteoarthritis Cost</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-slate-900 mb-4">Top Locations</h5>
+                    <ul class="space-y-2 text-sm text-slate-500">
+                        <li><a href="#" class="hover:text-brand-600 transition">Clinics in Los Angeles</a></li>
+                        <li><a href="#" class="hover:text-brand-600 transition">Clinics in Houston</a></li>
+                        <li><a href="#" class="hover:text-brand-600 transition">Clinics in Miami</a></li>
+                        <li><a href="#" class="hover:text-brand-600 transition">Clinics in Mexico</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-slate-900 mb-4">Legal</h5>
+                    <ul class="space-y-2 text-sm text-slate-500">
+                        <li><a href="#" class="hover:text-brand-600 transition">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-brand-600 transition">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-brand-600 transition">Clinic Verification</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Mandatory Compliance Footer -->
+            <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 mb-8">
+                <div class="flex items-start gap-4 text-[11px] text-slate-400 leading-relaxed uppercase tracking-wider">
+                    <svg class="w-10 h-10 text-slate-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <div>
+                        <p class="mb-2"><strong>Disclaimer:</strong> OrthoFinder is an information directory only. We do not provide medical advice, diagnosis, or treatment recommendations. All costs are estimated based on clinic reports and historical data. Stem cell therapies for orthopedic use vary in FDA status; always consult with a licensed physician regarding the regulatory status and safety of any procedure.</p>
+                        <p>No outcomes are guaranteed. Price ranges do not include airfare, lodging, or ancillary testing unless specified.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-slate-400 text-xs border-t border-slate-100 pt-8">
+                <p>&copy; 2023 OrthoFinder Inc. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-slate-600">Twitter</a>
+                    <a href="#" class="hover:text-slate-600">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function costIndexApp() {
+            return {
+                search: '',
+                sortBy: 'name',
+                pricingData: [
+                    { id: 1, name: 'Knee Osteoarthritis', low: 3000, median: 5500, high: 8000, clinics: 142, trend: 'up', trendPercent: 4.2, icon: '<path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />' },
+                    { id: 2, name: 'Lumbar Spine / Disc', low: 5000, median: 8200, high: 12500, clinics: 88, trend: 'down', trendPercent: 1.5, icon: '<path d="M4 6h16M4 10h16M4 14h16M4 18h16" />' },
+                    { id: 3, name: 'Shoulder (Rotator Cuff)', low: 3500, median: 5800, high: 7500, clinics: 112, trend: 'up', trendPercent: 2.8, icon: '<path d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 013 0m-6 3V11m0-5.5a1.5 1.5 0 013 0v4m-3-4V14" />' },
+                    { id: 4, name: 'Hip Osteoarthritis', low: 4000, median: 6500, high: 9000, clinics: 94, trend: 'up', trendPercent: 3.1, icon: '<path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />' },
+                    { id: 5, name: 'Cervical Spine (Neck)', low: 4500, median: 7800, high: 11000, clinics: 56, trend: 'up', trendPercent: 5.4, icon: '<path d="M12 4v16m8-8H4" />' },
+                    { id: 6, name: 'Ankle / Achilles', low: 2500, median: 4200, high: 6000, clinics: 74, trend: 'down', trendPercent: 0.8, icon: '<path d="M19 14l-7 7m0 0l-7-7m7 7V3" />' },
+                    { id: 7, name: 'Tennis/Golfer\'s Elbow', low: 2000, median: 3500, high: 5200, clinics: 105, trend: 'down', trendPercent: 2.2, icon: '<path d="M14.7 15.3a6.7 6.7 0 01-9.4 0L3.7 13.7a6.7 6.7 0 010-9.4l1.6-1.6a6.7 6.7 0 019.4 0l1.6 1.6a6.7 6.7 0 010 9.4l-1.6 1.6z" />' },
+                    { id: 8, name: 'Sacroiliac (SI) Joint', low: 4000, median: 6200, high: 8500, clinics: 42, trend: 'up', trendPercent: 1.9, icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />' },
+                    { id: 9, name: 'Wrist / Hand Arthritis', low: 2800, median: 4500, high: 6800, clinics: 63, trend: 'up', trendPercent: 2.5, icon: '<path d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 013 0m-6 3V11m0-5.5a1.5 1.5 0 013 0v4m-3-4V14" />' },
+                    { id: 10, name: 'Plantar Fasciitis', low: 1800, median: 3200, high: 4800, clinics: 120, trend: 'down', trendPercent: 4.1, icon: '<path d="M13 10V3L4 14h7v7l9-11h-7z" />' }
+                ],
+                priceDrivers: [
+                    { 
+                        title: 'Cell Source', 
+                        desc: 'Bone Marrow Aspirate Concentrate (BMAC) is typically 20-40% more expensive than Adipose (fat) derived options due to processing equipment.', 
+                        impact: '+ $1,500 - $3,000',
+                        icon: '<path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />'
+                    },
+                    { 
+                        title: 'Image Guidance', 
+                        desc: 'Using Fluoroscopy (X-Ray) or High-Res Ultrasound for precision placement increases clinic overhead and staffing costs.', 
+                        impact: '+ $500 - $1,200',
+                        icon: '<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />'
+                    },
+                    { 
+                        title: 'Facility Level', 
+                        desc: 'Procedures performed in a hospital outpatient department (HOPD) cost significantly more than those in a private office suite.', 
+                        impact: '+ $2,000 - $5,000',
+                        icon: '<path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />'
+                    }
+                ],
+                get filteredPricing() {
+                    let filtered = this.pricingData.filter(i => i.name.toLowerCase().includes(this.search.toLowerCase()));
+                    
+                    if (this.sortBy === 'name') {
+                        return filtered.sort((a, b) => a.name.localeCompare(b.name));
+                    } else if (this.sortBy === 'median') {
+                        return filtered.sort((a, b) => b.median - a.median);
+                    } else if (this.sortBy === 'clinics') {
+                        return filtered.sort((a, b) => b.clinics - a.clinics);
+                    }
+                    return filtered;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
