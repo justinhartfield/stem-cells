@@ -15,6 +15,7 @@
         .hero-gradient { background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 58, 138, 0.8) 100%); }
         .card-hover { transition: all 0.3s ease; }
         .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+            [x-cloak] { display: none !important; }
     </style>
 </head>
 <body class="bg-slate-50">
@@ -111,10 +112,131 @@
                             <p class="text-2xl font-bold text-slate-900">$4,000 - $11,000</p>
                         </div>
                         
-                        <a href="tel:4052714000" 
-                           class="block w-full bg-blue-600 text-white text-center px-6 py-3 rounded-lg hover:bg-blue-700 transition">
-                            Call Now
-                        </a>
+                        <div x-data="{ 
+                            showForm: false, 
+                            submitted: false,
+                            formData: {
+                                name: '',
+                                email: '',
+                                phone: '',
+                                condition: '',
+                                message: ''
+                            },
+                            submitForm() {
+                                // Store lead data in localStorage for now
+                                const leads = JSON.parse(localStorage.getItem('stemCellLeads') || '[]');
+                                leads.push({
+                                    ...this.formData,
+                                    clinic: 'OU Health Orthopedics',
+                                    clinicPhone: '(405) 271-4000',
+                                    city: 'Oklahoma City',
+                                    state: 'Oklahoma',
+                                    timestamp: new Date().toISOString(),
+                                    source: window.location.href
+                                });
+                                localStorage.setItem('stemCellLeads', JSON.stringify(leads));
+                                this.submitted = true;
+                                
+                                // Also send to webhook if configured
+                                fetch('https://hooks.zapier.com/hooks/catch/YOUR_WEBHOOK_ID/', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        ...this.formData,
+                                        clinic: 'OU Health Orthopedics',
+                                        clinicPhone: '(405) 271-4000',
+                                        city: 'Oklahoma City',
+                                        state: 'Oklahoma',
+                                        timestamp: new Date().toISOString(),
+                                        source: window.location.href
+                                    })
+                                }).catch(() => {});
+                            }
+                        }">
+                            <!-- Initial CTA Button -->
+                            <button x-show="!showForm && !submitted" 
+                                    @click="showForm = true"
+                                    class="w-full bg-blue-600 text-white text-center px-6 py-3 rounded-lg hover:bg-blue-700 transition font-medium">
+                                Get Free Consultation
+                            </button>
+                            
+                            <!-- Lead Capture Form -->
+                            <div x-show="showForm && !submitted" x-cloak class="space-y-4">
+                                <h4 class="text-lg font-bold text-slate-900">Request Information</h4>
+                                <p class="text-sm text-slate-600">Fill out the form below and a specialist will contact you.</p>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1">Full Name *</label>
+                                    <input type="text" x-model="formData.name" required
+                                           class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                           placeholder="John Smith">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1">Email Address *</label>
+                                    <input type="email" x-model="formData.email" required
+                                           class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                           placeholder="john@example.com">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1">Phone Number *</label>
+                                    <input type="tel" x-model="formData.phone" required
+                                           class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                           placeholder="(555) 123-4567">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1">Condition / Area of Pain *</label>
+                                    <select x-model="formData.condition" required
+                                            class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="">Select your condition</option>
+                                        <option value="Knee Pain / Osteoarthritis">Knee Pain / Osteoarthritis</option>
+                                        <option value="Back / Spine / Disc Pain">Back / Spine / Disc Pain</option>
+                                        <option value="Shoulder Pain / Rotator Cuff">Shoulder Pain / Rotator Cuff</option>
+                                        <option value="Hip Pain / Osteoarthritis">Hip Pain / Osteoarthritis</option>
+                                        <option value="Elbow / Tennis Elbow">Elbow / Tennis Elbow</option>
+                                        <option value="Ankle / Foot Pain">Ankle / Foot Pain</option>
+                                        <option value="Wrist / Hand Pain">Wrist / Hand Pain</option>
+                                        <option value="Sports Injury">Sports Injury</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1">Additional Information</label>
+                                    <textarea x-model="formData.message" rows="3"
+                                              class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                              placeholder="Tell us more about your condition..."></textarea>
+                                </div>
+                                
+                                <button @click="submitForm()" 
+                                        :disabled="!formData.name || !formData.email || !formData.phone || !formData.condition"
+                                        class="w-full bg-green-600 text-white text-center px-6 py-3 rounded-lg hover:bg-green-700 transition font-medium disabled:bg-slate-400 disabled:cursor-not-allowed">
+                                    Submit Request
+                                </button>
+                                
+                                <button @click="showForm = false" 
+                                        class="w-full text-slate-600 text-center px-6 py-2 hover:text-slate-800 transition text-sm">
+                                    Cancel
+                                </button>
+                                
+                                <p class="text-xs text-slate-500 text-center">
+                                    By submitting, you agree to be contacted about stem cell treatment options.
+                                </p>
+                            </div>
+                            
+                            <!-- Success Message -->
+                            <div x-show="submitted" x-cloak class="text-center py-4">
+                                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-bold text-slate-900 mb-2">Request Submitted!</h4>
+                                <p class="text-sm text-slate-600">A specialist will contact you within 24-48 hours to discuss your treatment options.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
