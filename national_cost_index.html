@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>National Cost Index | StemCellPrices.com Stem Cell Database</title>
+    <meta name="description" content="Comprehensive median pricing across 10 orthopedic categories based on data from BioInformant, Cochrane Reviews, Mayo Clinic, and 70+ verified clinics. Updated Q1 2026.">
+    <link rel="canonical" href="https://stemcellprices.com/national_cost_index.html">
+    
     <!-- Google Fonts: Manrope -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,20 +83,20 @@
     <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center gap-2">
+                <a href="/" class="flex items-center gap-2">
                     <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
                     </div>
                     <span class="text-xl font-bold tracking-tight text-slate-900">StemCellPrices.com<span class="text-brand-600">.</span></span>
-                </div>
+                </a>
                 <div class="hidden md:flex space-x-8 text-sm font-semibold text-slate-600">
-                    <a href="#" class="text-brand-600 border-b-2 border-brand-600">Cost Index</a>
-                    <a href="#" class="hover:text-brand-600 transition">Conditions</a>
-                    <a href="#" class="hover:text-brand-600 transition">Locations</a>
-                    <a href="#" class="hover:text-brand-600 transition">Find Clinics</a>
+                    <a href="/national_cost_index.html" class="text-brand-600 border-b-2 border-brand-600">Cost Guide</a>
+                    <a href="/knee_stem_cell_cost_guide.html" class="hover:text-brand-600 transition border-b-2 border-transparent">Conditions</a>
+                    <a href="/locations/" class="hover:text-brand-600 transition border-b-2 border-transparent">Locations</a>
+                    <a href="/locations/" class="hover:text-brand-600 transition border-b-2 border-transparent">Find Clinics</a>
                 </div>
                 <div class="flex items-center gap-4">
-                    <button class="text-sm font-bold text-brand-700 bg-brand-50 px-4 py-2 rounded-full hover:bg-brand-100 transition">Clinic Login</button>
+                    <a href="/admin/" class="text-sm font-bold text-brand-700 bg-brand-50 px-4 py-2 rounded-full hover:bg-brand-100 transition">Clinic Login</a>
                 </div>
             </div>
         </div>
@@ -105,7 +108,7 @@
             
             <!-- Breadcrumbs -->
             <nav class="flex mb-8 text-xs font-bold uppercase tracking-widest text-slate-400 gap-2">
-                <a href="#" class="hover:text-brand-600">Home</a>
+                <a href="/" class="hover:text-brand-600">Home</a>
                 <span>/</span>
                 <span class="text-slate-600">National Cost Index</span>
             </nav>
@@ -114,13 +117,13 @@
             <div class="mb-12">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 text-white text-[10px] font-bold uppercase tracking-widest mb-4">
                     <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                    Verified Data Report: Q4 2023
+                    Verified Data Report: Q1 2026
                 </div>
                 <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
                     National Stem Cell <span class="text-brand-600">Cost Index</span>
                 </h1>
                 <p class="text-lg text-slate-600 max-w-3xl">
-                    Comprehensive median pricing across 10 orthopedic categories. These ranges represent typical out-of-pocket costs for cash-pay patients in the United States.
+                    Comprehensive median pricing across 10 orthopedic categories based on data from BioInformant, Cochrane Reviews, Mayo Clinic, and 70+ verified clinics. These ranges represent typical out-of-pocket costs for cash-pay patients in the United States.
                 </p>
             </div>
 
@@ -157,7 +160,7 @@
                         <!-- Table Rows -->
                         <div class="divide-y divide-slate-50">
                             <template x-for="item in filteredPricing" :key="item.id">
-                                <div class="px-6 md:px-8 py-6 table-row-hover transition-colors group cursor-pointer">
+                                <a :href="item.link" class="block px-6 md:px-8 py-6 table-row-hover transition-colors group cursor-pointer">
                                     <div class="grid grid-cols-1 md:grid-cols-12 items-center gap-4 md:gap-0">
                                         <!-- Condition Info -->
                                         <div class="col-span-1 md:col-span-4 flex items-center gap-4">
@@ -166,7 +169,10 @@
                                             </div>
                                             <div>
                                                 <h3 class="font-bold text-slate-900 group-hover:text-brand-600 transition-colors" x-text="item.name"></h3>
-                                                <span class="text-[10px] text-slate-400 font-bold uppercase" x-text="item.clinics + ' Reports Indexed'"></span>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-[10px] text-slate-400 font-bold uppercase" x-text="item.clinics + ' clinics reporting'"></span>
+                                                    <span class="text-[10px] font-bold px-1.5 py-0.5 rounded" :class="item.successColor" x-text="'Success: ' + item.success"></span>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -179,7 +185,7 @@
                                         <div class="col-span-1 md:col-span-3 text-center">
                                             <div class="md:hidden text-[10px] font-bold text-slate-400 uppercase mb-1">Median</div>
                                             <div class="inline-flex flex-col items-center">
-                                                <span class="text-xl font-extrabold text-slate-900 leading-none mb-1" x-text="'$' + item.median.toLocaleString()"></span>
+                                                <span class="text-xl font-extrabold text-brand-600 leading-none mb-1" x-text="'$' + item.median.toLocaleString()"></span>
                                                 <div class="w-24 h-1.5 bg-slate-100 rounded-full overflow-hidden">
                                                     <div class="h-full price-range-fill rounded-full" :style="'width: ' + ((item.median - item.low) / (item.high - item.low) * 100) + '%'"></div>
                                                 </div>
@@ -194,11 +200,12 @@
                                         <!-- Trend Indicator -->
                                         <div class="col-span-1 md:col-span-1 text-right flex md:block items-center justify-between">
                                             <div class="md:hidden text-[10px] font-bold text-slate-400 uppercase">Trend</div>
-                                            <div class="inline-flex items-center gap-1" :class="item.trend === 'up' ? 'text-rose-500' : 'text-emerald-500'">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" :class="item.trend === 'up' ? 'rotate-0' : 'rotate-180'">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                            <div class="inline-flex items-center gap-1" :class="item.trend === 'up' ? 'text-rose-500' : item.trend === 'down' ? 'text-emerald-500' : 'text-slate-400'">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" :class="item.trend === 'up' ? 'rotate-0' : item.trend === 'down' ? 'rotate-180' : ''">
+                                                    <path x-show="item.trend !== 'flat'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                                    <path x-show="item.trend === 'flat'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14"></path>
                                                 </svg>
-                                                <span class="text-[10px] font-extrabold" x-text="item.trendPercent + '%'"></span>
+                                                <span class="text-[10px] font-extrabold" x-text="item.trendPercent"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -208,7 +215,7 @@
                                         <span class="px-2 py-1 bg-brand-50 text-brand-700 text-[9px] font-bold rounded uppercase whitespace-nowrap">FDA Compliant Labs</span>
                                         <span class="px-2 py-1 bg-slate-100 text-slate-600 text-[9px] font-bold rounded uppercase whitespace-nowrap">Image Guided</span>
                                     </div>
-                                </div>
+                                </a>
                             </template>
                         </div>
 
@@ -225,33 +232,25 @@
 
                 <!-- Sidebar: Price Drivers (Col 4) -->
                 <aside class="lg:col-span-4 space-y-6">
-                    <!-- Price Driver Component -->
-                    <div class="bg-slate-900 rounded-3xl p-8 text-white relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                            <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg>
-                        </div>
-                        <h2 class="text-xl font-extrabold mb-6 relative z-10">Why prices vary?</h2>
-                        <div class="space-y-6 relative z-10">
-                            <template x-for="driver in priceDrivers" :key="driver.title">
-                                <div class="flex gap-4">
-                                    <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center shrink-0 border border-white/5">
-                                        <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-html="driver.icon"></svg>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-sm font-bold text-white mb-1" x-text="driver.title"></h4>
-                                        <p class="text-xs text-slate-400 leading-relaxed" x-text="driver.desc"></p>
-                                        <div class="mt-2 flex items-center gap-2">
-                                            <span class="text-[10px] font-bold text-sky-400 uppercase">Impact:</span>
-                                            <span class="text-[10px] font-bold bg-sky-500/20 text-sky-300 px-2 py-0.5 rounded" x-text="driver.impact"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </template>
-                        </div>
-                        <div class="mt-8 pt-8 border-t border-white/10">
-                            <button class="w-full py-4 bg-brand-600 hover:bg-brand-700 text-white rounded-2xl font-bold text-sm transition shadow-lg shadow-brand-900/50">
-                                Find a Clinic in Your Budget
-                            </button>
+                    <!-- What Drives Price Variation -->
+                    <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
+                        <h2 class="text-xl font-extrabold text-slate-900 mb-6">What Drives Price Variation?</h2>
+                        <div class="space-y-6">
+                            <div class="p-4 bg-slate-50 rounded-2xl">
+                                <h4 class="text-sm font-bold text-slate-900 mb-2">Cell Source</h4>
+                                <p class="text-xs text-slate-500 leading-relaxed mb-2">PRP ($500-$2,000) is most affordable. BMAC ($2,600-$7,000) is mid-range. Adipose-derived ($5,000-$15,000) and Umbilical Cord ($8,000-$25,000) are premium options.</p>
+                                <span class="text-[10px] font-bold text-sky-600">+ $1,500 - $15,000</span>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-2xl">
+                                <h4 class="text-sm font-bold text-slate-900 mb-2">Image Guidance</h4>
+                                <p class="text-xs text-slate-500 leading-relaxed mb-2">Ultrasound guidance adds $500-$800. Fluoroscopy (X-ray) guidance adds $800-$1,200 for precision placement.</p>
+                                <span class="text-[10px] font-bold text-sky-600">+ $500 - $1,200</span>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-2xl">
+                                <h4 class="text-sm font-bold text-slate-900 mb-2">Facility Type</h4>
+                                <p class="text-xs text-slate-500 leading-relaxed mb-2">Private office is base price. Ambulatory surgery centers add $1,000-$2,500. Hospital outpatient adds $2,000-$5,000 in facility fees.</p>
+                                <span class="text-[10px] font-bold text-sky-600">+ $2,000 - $5,000</span>
+                            </div>
                         </div>
                     </div>
 
@@ -276,53 +275,83 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+
+                    <!-- CTA Button -->
+                    <div class="bg-slate-900 rounded-3xl p-8 text-white">
+                        <h3 class="font-extrabold text-white mb-4">Find a Clinic in Your Budget</h3>
+                        <p class="text-sm text-slate-400 mb-6">Browse 102 verified clinics across 30 states with transparent pricing.</p>
+                        <a href="/locations/" class="block w-full py-4 bg-brand-600 hover:bg-brand-700 text-white rounded-2xl font-bold text-sm text-center transition shadow-lg shadow-brand-900/50">
+                            Browse All Clinics
+                        </a>
+                    </div>
+                </aside>
             </div>
         </div>
     </main>
 
     <!-- Global Footer -->
-    <footer class="bg-gray-900 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="col-span-1 md:col-span-1">
-                <a href="/" class="flex items-center mb-4">
-                    <img src="/assets/images/logo-dark.png" alt="StemCellPrices.com" class="h-8 w-auto brightness-0 invert">
-                </a>
-                <p class="text-gray-400 text-sm">Compare stem cell therapy costs across the US and Mexico. Find verified clinics and transparent pricing.</p>
+    <footer class="bg-white border-t border-slate-200 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="md:col-span-1">
+                    <a href="/" class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight text-slate-900">StemCellPrices.com</span>
+                    </a>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        The web's most trusted database for regenerative orthopedic therapy pricing and clinic comparison.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="font-bold text-slate-900 mb-4">Treatment Costs</h5>
+                    <ul class="space-y-2 text-sm text-slate-500">
+                        <li><a href="/knee_stem_cell_cost_guide.html" class="hover:text-brand-600 transition">Knee Stem Cell Cost</a></li>
+                        <li><a href="/lp/spine-disc/california/los-angeles/" class="hover:text-brand-600 transition">Back & Spine Cost</a></li>
+                        <li><a href="/lp/shoulder/california/los-angeles/" class="hover:text-brand-600 transition">Shoulder Injection Cost</a></li>
+                        <li><a href="/lp/hip-osteoarthritis/california/los-angeles/" class="hover:text-brand-600 transition">Hip Osteoarthritis Cost</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-slate-900 mb-4">Top Locations</h5>
+                    <ul class="space-y-2 text-sm text-slate-500">
+                        <li><a href="/locations/" class="hover:text-brand-600 transition">All 30 States →</a></li>
+                        <li><a href="/locations/california/los-angeles/" class="hover:text-brand-600 transition">Clinics in Los Angeles</a></li>
+                        <li><a href="/locations/california/" class="hover:text-brand-600 transition">Clinics in California</a></li>
+                        <li><a href="/locations/texas/" class="hover:text-brand-600 transition">Clinics in Texas</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-slate-900 mb-4">Legal</h5>
+                    <ul class="space-y-2 text-sm text-slate-500">
+                        <li><a href="#" class="hover:text-brand-600 transition">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-brand-600 transition">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-brand-600 transition">Clinic Verification</a></li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <h3 class="text-white font-semibold mb-4">Popular States</h3>
-                <ul class="space-y-2">
-                    <li><a href="/locations/california/" class="text-gray-400 hover:text-teal-400 text-sm">California</a></li>
-                    <li><a href="/locations/texas/" class="text-gray-400 hover:text-teal-400 text-sm">Texas</a></li>
-                    <li><a href="/locations/florida/" class="text-gray-400 hover:text-teal-400 text-sm">Florida</a></li>
-                    <li><a href="/locations/arizona/" class="text-gray-400 hover:text-teal-400 text-sm">Arizona</a></li>
-                </ul>
+
+            <!-- Mandatory Compliance Footer -->
+            <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 mb-8">
+                <div class="flex items-start gap-4 text-[11px] text-slate-400 leading-relaxed uppercase tracking-wider">
+                    <svg class="w-10 h-10 text-slate-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <div>
+                        <p class="mb-2"><strong>Disclaimer:</strong> StemCellPrices.com is an information directory only. We do not provide medical advice, diagnosis, or treatment recommendations. All costs are estimated based on clinic reports and historical data. Stem cell therapies for orthopedic use vary in FDA status; always consult with a licensed physician regarding the regulatory status and safety of any procedure.</p>
+                        <p>No outcomes are guaranteed. Price ranges do not include airfare, lodging, or ancillary testing unless specified.</p>
+                    </div>
+                </div>
             </div>
-            <div>
-                <h3 class="text-white font-semibold mb-4">Mexico</h3>
-                <ul class="space-y-2">
-                    <li><a href="/locations/mexico/" class="text-gray-400 hover:text-teal-400 text-sm">Mexico Overview</a></li>
-                    <li><a href="/locations/mexico/tijuana/" class="text-gray-400 hover:text-teal-400 text-sm">Tijuana</a></li>
-                    <li><a href="/locations/mexico/cancun/" class="text-gray-400 hover:text-teal-400 text-sm">Cancun</a></li>
-                    <li><a href="/locations/mexico/puerto-vallarta/" class="text-gray-400 hover:text-teal-400 text-sm">Puerto Vallarta</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-white font-semibold mb-4">Resources</h3>
-                <ul class="space-y-2">
-                    <li><a href="/#cost-guide" class="text-gray-400 hover:text-teal-400 text-sm">Cost Guide</a></li>
-                    <li><a href="/compare-costs/" class="text-gray-400 hover:text-teal-400 text-sm">Compare Costs</a></li>
-                    <li><a href="/locations/" class="text-gray-400 hover:text-teal-400 text-sm">All Locations</a></li>
-                </ul>
+
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-slate-400 text-xs border-t border-slate-100 pt-8">
+                <p>&copy; 2026 StemCellPrices.com Inc. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-slate-600">Twitter</a>
+                    <a href="#" class="hover:text-slate-600">LinkedIn</a>
+                </div>
             </div>
         </div>
-        <div class="border-t border-gray-800 mt-8 pt-8 text-center">
-            <p class="text-gray-400 text-sm">&copy; 2025 StemCellPrices.com. All rights reserved.</p>
-        </div>
-    </div>
-</footer>
+    </footer>
 
     <script>
         function costIndexApp() {
@@ -330,36 +359,16 @@
                 search: '',
                 sortBy: 'name',
                 pricingData: [
-                    { id: 1, name: 'Knee Osteoarthritis', low: 3000, median: 5500, high: 8000, clinics: 142, trend: 'up', trendPercent: 4.2, icon: '<path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />' },
-                    { id: 2, name: 'Lumbar Spine / Disc', low: 5000, median: 8200, high: 12500, clinics: 88, trend: 'down', trendPercent: 1.5, icon: '<path d="M4 6h16M4 10h16M4 14h16M4 18h16" />' },
-                    { id: 3, name: 'Shoulder (Rotator Cuff)', low: 3500, median: 5800, high: 7500, clinics: 112, trend: 'up', trendPercent: 2.8, icon: '<path d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 013 0m-6 3V11m0-5.5a1.5 1.5 0 013 0v4m-3-4V14" />' },
-                    { id: 4, name: 'Hip Osteoarthritis', low: 4000, median: 6500, high: 9000, clinics: 94, trend: 'up', trendPercent: 3.1, icon: '<path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />' },
-                    { id: 5, name: 'Cervical Spine (Neck)', low: 4500, median: 7800, high: 11000, clinics: 56, trend: 'up', trendPercent: 5.4, icon: '<path d="M12 4v16m8-8H4" />' },
-                    { id: 6, name: 'Ankle / Achilles', low: 2500, median: 4200, high: 6000, clinics: 74, trend: 'down', trendPercent: 0.8, icon: '<path d="M19 14l-7 7m0 0l-7-7m7 7V3" />' },
-                    { id: 7, name: 'Tennis/Golfer\'s Elbow', low: 2000, median: 3500, high: 5200, clinics: 105, trend: 'down', trendPercent: 2.2, icon: '<path d="M14.7 15.3a6.7 6.7 0 01-9.4 0L3.7 13.7a6.7 6.7 0 010-9.4l1.6-1.6a6.7 6.7 0 019.4 0l1.6 1.6a6.7 6.7 0 010 9.4l-1.6 1.6z" />' },
-                    { id: 8, name: 'Sacroiliac (SI) Joint', low: 4000, median: 6200, high: 8500, clinics: 42, trend: 'up', trendPercent: 1.9, icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />' },
-                    { id: 9, name: 'Wrist / Hand Arthritis', low: 2800, median: 4500, high: 6800, clinics: 63, trend: 'up', trendPercent: 2.5, icon: '<path d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 013 0m-6 3V11m0-5.5a1.5 1.5 0 013 0v4m-3-4V14" />' },
-                    { id: 10, name: 'Plantar Fasciitis', low: 1800, median: 3200, high: 4800, clinics: 120, trend: 'down', trendPercent: 4.1, icon: '<path d="M13 10V3L4 14h7v7l9-11h-7z" />' }
-                ],
-                priceDrivers: [
-                    { 
-                        title: 'Cell Source', 
-                        desc: 'Bone Marrow Aspirate Concentrate (BMAC) is typically 20-40% more expensive than Adipose (fat) derived options due to processing equipment.', 
-                        impact: '+ $1,500 - $3,000',
-                        icon: '<path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />'
-                    },
-                    { 
-                        title: 'Image Guidance', 
-                        desc: 'Using Fluoroscopy (X-Ray) or High-Res Ultrasound for precision placement increases clinic overhead and staffing costs.', 
-                        impact: '+ $500 - $1,200',
-                        icon: '<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />'
-                    },
-                    { 
-                        title: 'Facility Level', 
-                        desc: 'Procedures performed in a hospital outpatient department (HOPD) cost significantly more than those in a private office suite.', 
-                        impact: '+ $2,000 - $5,000',
-                        icon: '<path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />'
-                    }
+                    { id: 1, name: 'Ankle / Achilles', low: 2500, median: 4500, high: 6500, clinics: 110, success: '65-75%', successColor: 'bg-emerald-100 text-emerald-700', trend: 'flat', trendPercent: '→ 0.9%', link: '/locations/', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />' },
+                    { id: 2, name: 'Cervical Spine (Neck)', low: 4500, median: 7500, high: 12000, clinics: 90, success: '55-65%', successColor: 'bg-amber-100 text-amber-700', trend: 'up', trendPercent: '↑ 3.8%', link: '/lp/spine-disc/california/los-angeles/', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />' },
+                    { id: 3, name: 'Hip Osteoarthritis', low: 4000, median: 6500, high: 10000, clinics: 180, success: '60-70%', successColor: 'bg-emerald-100 text-emerald-700', trend: 'up', trendPercent: '↑ 2.9%', link: '/lp/hip-osteoarthritis/california/los-angeles/', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />' },
+                    { id: 4, name: 'Knee Osteoarthritis', low: 3500, median: 5800, high: 9000, clinics: 250, success: '68-77%', successColor: 'bg-emerald-100 text-emerald-700', trend: 'up', trendPercent: '↑ 3.5%', link: '/knee_stem_cell_cost_guide.html', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />' },
+                    { id: 5, name: 'Lumbar Spine / Disc', low: 5000, median: 8500, high: 15000, clinics: 150, success: '55-65%', successColor: 'bg-amber-100 text-amber-700', trend: 'up', trendPercent: '↑ 4.1%', link: '/lp/spine-disc/california/los-angeles/', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />' },
+                    { id: 6, name: 'Plantar Fasciitis', low: 1800, median: 3500, high: 5000, clinics: 140, success: '70-80%', successColor: 'bg-emerald-100 text-emerald-700', trend: 'down', trendPercent: '↓ 2.5%', link: '/locations/', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />' },
+                    { id: 7, name: 'Sacroiliac (SI) Joint', low: 4000, median: 6000, high: 9000, clinics: 70, success: '60-70%', successColor: 'bg-emerald-100 text-emerald-700', trend: 'up', trendPercent: '↑ 2.1%', link: '/lp/spine-disc/california/los-angeles/', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />' },
+                    { id: 8, name: 'Shoulder (Rotator Cuff)', low: 3000, median: 5500, high: 8000, clinics: 210, success: '65-75%', successColor: 'bg-emerald-100 text-emerald-700', trend: 'flat', trendPercent: '→ 1.2%', link: '/lp/shoulder/california/los-angeles/', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 013 0m-6 3V11m0-5.5a1.5 1.5 0 013 0v4m-3-4V14" />' },
+                    { id: 9, name: 'Tennis/Golfer\'s Elbow', low: 2000, median: 3500, high: 5500, clinics: 130, success: '70-80%', successColor: 'bg-emerald-100 text-emerald-700', trend: 'down', trendPercent: '↓ 1.5%', link: '/locations/', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.7 15.3a6.7 6.7 0 01-9.4 0L3.7 13.7a6.7 6.7 0 010-9.4l1.6-1.6a6.7 6.7 0 019.4 0l1.6 1.6a6.7 6.7 0 010 9.4l-1.6 1.6z" />' },
+                    { id: 10, name: 'Wrist / Hand Arthritis', low: 2800, median: 4800, high: 7000, clinics: 85, success: '65-75%', successColor: 'bg-emerald-100 text-emerald-700', trend: 'flat', trendPercent: '→ 1%', link: '/locations/', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 013 0m-6 3V11m0-5.5a1.5 1.5 0 013 0v4m-3-4V14" />' }
                 ],
                 get filteredPricing() {
                     let filtered = this.pricingData.filter(i => i.name.toLowerCase().includes(this.search.toLowerCase()));
