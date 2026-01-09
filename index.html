@@ -247,7 +247,7 @@
                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
                                         <!-- Step 1: Condition -->
                                         <div class="relative" x-on:click.away="openStep = 0">
-                                            <button @click="openStep = 1"
+                                            <button @click.stop="openStep = openStep === 1 ? 0 : 1"
                                                 :class="condition ? 'border-brand-200 bg-brand-50/30' : 'border-transparent'"
                                                 class="w-full text-left px-6 py-4 rounded-2xl border-2 hover:border-brand-200 transition-all flex flex-col justify-center">
                                                 <span class="text-[10px] uppercase font-bold text-slate-400 mb-1">1. Select Condition</span>
@@ -265,7 +265,7 @@
 
                                         <!-- Step 2: State -->
                                         <div class="relative" x-on:click.away="openStep = 0">
-                                            <button @click="openStep = 2"
+                                            <button @click.stop="openStep = openStep === 2 ? 0 : 2"
                                                 :class="state ? 'border-brand-200 bg-brand-50/30' : 'border-transparent'"
                                                 class="w-full text-left px-6 py-4 rounded-2xl border-2 hover:border-brand-200 transition-all flex flex-col justify-center">
                                                 <span class="text-[10px] uppercase font-bold text-slate-400 mb-1">2. State</span>
@@ -284,7 +284,7 @@
                                         <!-- Step 3: City + Search -->
                                         <div class="relative" x-on:click.away="openStep = 0">
                                             <div class="flex items-center gap-2">
-                                                <button @click="openStep = 3"
+                                                <button @click.stop="openStep = openStep === 3 ? 0 : 3"
                                                     :class="city ? 'border-brand-200 bg-brand-50/30' : 'border-transparent'"
                                                     class="flex-grow text-left px-6 py-4 rounded-2xl border-2 hover:border-brand-200 transition-all flex flex-col justify-center">
                                                     <span class="text-[10px] uppercase font-bold text-slate-400 mb-1">3. City</span>
