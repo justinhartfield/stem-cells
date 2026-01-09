@@ -132,6 +132,59 @@
         .page-enter { opacity: 0; transform: translateY(10px); }
         .page-enter-active { transition: all 0.3s ease-out; }
         .page-leave-active { transition: all 0.2s ease-in; opacity: 0; }
+    
+        /* Navigation Dropdown Fix */
+        .nav-dropdown-container {
+            position: relative;
+        }
+        .nav-dropdown-container:hover .nav-dropdown-menu {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .nav-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 220px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            padding: 8px 0;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+        }
+        .nav-dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 0;
+            right: 0;
+            height: 10px;
+        }
+        .nav-dropdown-menu a {
+            display: block;
+            padding: 10px 16px;
+            color: #334155;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.15s;
+        }
+        .nav-dropdown-menu a:hover {
+            background: #f0f7ff;
+            color: #2563eb;
+        }
+        .nav-dropdown-divider {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 8px 0;
+        }
+
     </style>
 <script type="application/ld+json">
 {
@@ -273,8 +326,8 @@
                     <a href="#" @click.prevent="navigate('cost-index')" :class="currentPage === 'cost-index' ? 'text-brand-600 border-b-2 border-brand-600' : 'hover:text-brand-600'" class="transition">Cost Guide</a>
                     <a href="#" @click.prevent="navigate('knee-cost-guide')" :class="currentPage === 'knee-cost-guide' ? 'text-brand-600 border-b-2 border-brand-600' : 'hover:text-brand-600'" class="transition">Conditions</a>
                     <div class="relative" x-data="{ locationsOpen: false }" @mouseenter="locationsOpen = true" @mouseleave="locationsOpen = false">
-                        <a href="#" href="/locations/" :class="currentPage.includes('directory') || currentPage === 'all-states' ? 'text-brand-600 border-b-2 border-brand-600' : 'hover:text-brand-600'" class="transition">Locations</a>
-                        <div x-show="locationsOpen" x-cloak class="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50 max-h-96 overflow-y-auto">
+                        <a href="/locations/" :class="currentPage.includes('directory') || currentPage === 'all-states' ? 'text-brand-600 border-b-2 border-brand-600' : 'hover:text-brand-600'" class="transition inline-flex items-center gap-1 py-4">Locations <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></a>
+                        <div x-show="locationsOpen" x-cloak class="absolute top-full left-0 pt-0 w-64 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50 max-h-96 overflow-y-auto">
                             <a href="/locations/" class="block px-4 py-2 text-sm font-bold text-brand-600 hover:bg-brand-50">View All 30 States →</a>
                             <div class="border-t border-slate-100 my-2"></div>
                             <a href="/locations/california/" class="block px-4 py-2 text-sm text-slate-600 hover:bg-brand-50 hover:text-brand-600">California</a>
@@ -288,7 +341,10 @@
                             <a href="/locations/washington/" class="block px-4 py-2 text-sm text-slate-600 hover:bg-brand-50 hover:text-brand-600">Washington</a>
                             <a href="/locations/massachusetts/" class="block px-4 py-2 text-sm text-slate-600 hover:bg-brand-50 hover:text-brand-600">Massachusetts</a>
                             <div class="border-t border-slate-100 my-2"></div>
-                            <a href="/locations/" class="block px-4 py-2 text-xs text-slate-400 hover:text-brand-600">+ 20 more states</a>
+                            <div class="border-t border-slate-100 my-2"></div>
+                            <p class="px-4 py-1 text-xs text-slate-400 uppercase tracking-wider">International</p>
+                            <a href="/locations/mexico/" class="block px-4 py-2 text-sm text-slate-600 hover:bg-brand-50 hover:text-brand-600">🇲🇽 Mexico</a>
+                            <a href="/compare-costs/" class="block px-4 py-2 text-sm text-slate-600 hover:bg-brand-50 hover:text-brand-600">Compare Travel Costs</a>
                         </div>
                     </div>
                     <a href="#" @click.prevent="navigate('home')" :class="currentPage === 'home' ? 'text-brand-600 border-b-2 border-brand-600' : 'hover:text-brand-600'" class="transition">Find Clinics</a>
@@ -486,7 +542,7 @@
                         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div class="flex flex-col md:flex-row items-baseline justify-between gap-4 mb-10">
                                 <h2 class="text-3xl font-extrabold text-slate-900">Popular Hubs & Medical Tourism</h2>
-                                <a href="#" href="/locations/" class="text-brand-600 font-bold hover:underline inline-flex items-center gap-1">
+                                <a href="/locations/" class="text-brand-600 font-bold hover:underline inline-flex items-center gap-1">
                                     View All 30 States & 50+ Cities
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                                 </a>
@@ -494,7 +550,7 @@
 
                             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
                                 <template x-for="city in popularCities" :key="city.name">
-                                    <a :href="'/locations/' + city.state.toLowerCase().replace(/\s+/g, '-') + '/' + city.name.toLowerCase().replace(/\s+/g, '-') + '/'" class="group relative overflow-hidden rounded-2xl aspect-[4/3] bg-slate-100 flex flex-col justify-end p-4 transition-all hover:-translate-y-1 hover:shadow-xl">
+                                    <a :href="city.state === 'Mexico' ? '/locations/mexico/' + city.name.toLowerCase().replace(/\s+/g, '-') + '/' : '/locations/' + city.state.toLowerCase().replace(/\s+/g, '-') + '/' + city.name.toLowerCase().replace(/\s+/g, '-') + '/'" class="group relative overflow-hidden rounded-2xl aspect-[4/3] bg-slate-100 flex flex-col justify-end p-4 transition-all hover:-translate-y-1 hover:shadow-xl">
                                         <img :src="city.img" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80" :alt="city.name">
                                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
                                         <div class="relative z-10 text-left">
@@ -515,9 +571,9 @@
                                     <h3 class="text-xl font-extrabold text-slate-900 mb-2">Considering Stem Cell Therapy in Mexico?</h3>
                                     <p class="text-slate-600">Save up to 65% on high-dose IV treatments. We compare Tijuana, Cancun, and Puerto Vallarta clinics side-by-side with US options.</p>
                                 </div>
-                                <button @click="$dispatch('navigate', 'mexico-comparison')" class="bg-white text-slate-900 px-8 py-4 rounded-2xl font-bold border-2 border-slate-100 hover:border-brand-600 transition shadow-sm whitespace-nowrap">
+                                <a href="/locations/mexico/" class="bg-white text-slate-900 px-8 py-4 rounded-2xl font-bold border-2 border-slate-100 hover:border-brand-600 transition shadow-sm whitespace-nowrap inline-block">
                                     Compare Travel Costs
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </section>
@@ -626,70 +682,47 @@
     </main>
 
     <!-- Global Footer -->
-    <footer class="bg-white border-t border-slate-200 pt-16 pb-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-                <div class="md:col-span-1">
-                    <div class="flex items-center gap-2 mb-6">
-                        <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
-                        </div>
-                        <span class="text-xl font-bold tracking-tight text-slate-900">StemCellPrices.com</span>
-                    </div>
-                    <p class="text-slate-500 text-sm leading-relaxed">
-                        The web's most trusted database for regenerative orthopedic therapy pricing and clinic comparison.
-                    </p>
-                </div>
-                <div>
-                    <h5 class="font-bold text-slate-900 mb-4">Treatment Costs</h5>
-                    <ul class="space-y-2 text-sm text-slate-500">
-                        <li><a href="#" @click.prevent="navigate('knee-cost-guide')" class="hover:text-brand-600">Knee Stem Cell Cost</a></li>
-                        <li><a href="#" @click.prevent="navigate('cost-index')" class="hover:text-brand-600">Back & Spine Cost</a></li>
-                        <li><a href="#" @click.prevent="navigate('cost-index')" class="hover:text-brand-600">Shoulder Injection Cost</a></li>
-                        <li><a href="#" @click.prevent="navigate('cost-index')" class="hover:text-brand-600">Hip Osteoarthritis Cost</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="font-bold text-slate-900 mb-4">Top Locations</h5>
-                    <ul class="space-y-2 text-sm text-slate-500">
-                        <li><a href="#" href="/locations/" class="hover:text-brand-600 font-semibold">All 30 States →</a></li>
-                        <li><a href="#" href="/locations/california/los-angeles/" class="hover:text-brand-600">Clinics in Los Angeles</a></li>
-                        <li><a href="#" href="/locations/california/" class="hover:text-brand-600">Clinics in California</a></li>
-                        <li><a href="#" href="/locations/texas/" class="hover:text-brand-600">Clinics in Texas</a></li>
-                        <li><a href="#" href="/locations/florida/" class="hover:text-brand-600">Clinics in Florida</a></li>
-                        <li><a href="#" @click.prevent="navigate('mexico-comparison')" class="hover:text-brand-600">Clinics in Mexico</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="font-bold text-slate-900 mb-4">Legal</h5>
-                    <ul class="space-y-2 text-sm text-slate-500">
-                        <li><a href="#" class="hover:text-brand-600">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-brand-600">Terms of Service</a></li>
-                        <li><a href="#" class="hover:text-brand-600">Clinic Verification</a></li>
-                    </ul>
-                </div>
+    <footer class="bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="col-span-1 md:col-span-1">
+                <a href="/" class="flex items-center mb-4">
+                    <img src="/assets/images/logo-dark.png" alt="StemCellPrices.com" class="h-8 w-auto brightness-0 invert">
+                </a>
+                <p class="text-gray-400 text-sm">Compare stem cell therapy costs across the US and Mexico. Find verified clinics and transparent pricing.</p>
             </div>
-
-            <!-- Compliance Footer -->
-            <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 mb-8">
-                <div class="flex items-start gap-4 text-[11px] text-slate-400 leading-relaxed uppercase tracking-wider">
-                    <svg class="w-10 h-10 text-slate-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                    <div>
-                        <p class="mb-2"><strong>Disclaimer:</strong> StemCellPrices.com is an information directory only. We do not provide medical advice, diagnosis, or treatment recommendations. All costs are estimated based on clinic reports and historical data. Stem cell therapies for orthopedic use vary in FDA status; always consult with a licensed physician regarding the regulatory status and safety of any procedure.</p>
-                        <p>No outcomes are guaranteed. Price ranges do not include airfare, lodging, or ancillary testing unless specified.</p>
-                    </div>
-                </div>
+            <div>
+                <h3 class="text-white font-semibold mb-4">Popular States</h3>
+                <ul class="space-y-2">
+                    <li><a href="/locations/california/" class="text-gray-400 hover:text-teal-400 text-sm">California</a></li>
+                    <li><a href="/locations/texas/" class="text-gray-400 hover:text-teal-400 text-sm">Texas</a></li>
+                    <li><a href="/locations/florida/" class="text-gray-400 hover:text-teal-400 text-sm">Florida</a></li>
+                    <li><a href="/locations/arizona/" class="text-gray-400 hover:text-teal-400 text-sm">Arizona</a></li>
+                </ul>
             </div>
-
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-slate-400 text-xs border-t border-slate-100 pt-8">
-                <p>&copy; 2026 StemCellPrices.com Inc. All rights reserved.</p>
-                <div class="flex gap-6">
-                    <a href="#" class="hover:text-slate-600">Twitter</a>
-                    <a href="#" class="hover:text-slate-600">LinkedIn</a>
-                </div>
+            <div>
+                <h3 class="text-white font-semibold mb-4">Mexico</h3>
+                <ul class="space-y-2">
+                    <li><a href="/locations/mexico/" class="text-gray-400 hover:text-teal-400 text-sm">Mexico Overview</a></li>
+                    <li><a href="/locations/mexico/tijuana/" class="text-gray-400 hover:text-teal-400 text-sm">Tijuana</a></li>
+                    <li><a href="/locations/mexico/cancun/" class="text-gray-400 hover:text-teal-400 text-sm">Cancun</a></li>
+                    <li><a href="/locations/mexico/puerto-vallarta/" class="text-gray-400 hover:text-teal-400 text-sm">Puerto Vallarta</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-white font-semibold mb-4">Resources</h3>
+                <ul class="space-y-2">
+                    <li><a href="/#cost-guide" class="text-gray-400 hover:text-teal-400 text-sm">Cost Guide</a></li>
+                    <li><a href="/compare-costs/" class="text-gray-400 hover:text-teal-400 text-sm">Compare Costs</a></li>
+                    <li><a href="/locations/" class="text-gray-400 hover:text-teal-400 text-sm">All Locations</a></li>
+                </ul>
             </div>
         </div>
-    </footer>
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+            <p class="text-gray-400 text-sm">&copy; 2025 StemCellPrices.com. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
 
     <!-- Main App Script -->
     <script src="app.js"></script>

@@ -1021,12 +1021,12 @@ function homePage() {
             { condition: 'Hip Joints', range: '$4,000 - $10,000', count: 180, source: 'AZCPM' }
         ],
         // Real city data with verified average prices
-        popularCities: [
-            { name: 'Los Angeles', price: 'Avg $5,800', type: 'Premium Market', img: 'https://images.unsplash.com/photo-1580655653885-65763b2597ad?auto=format&fit=crop&w=300&q=80' },
-            { name: 'Houston', price: 'Avg $4,900', type: 'Value Market', img: 'https://images.unsplash.com/photo-1530089711124-9ca31fb9e863?auto=format&fit=crop&w=300&q=80' },
-            { name: 'Tijuana', price: 'Avg $3,500', type: 'Medical Tourism', img: 'https://images.unsplash.com/photo-1599351052796-039c381f9640?auto=format&fit=crop&w=300&q=80' },
-            { name: 'Miami', price: 'Avg $6,100', type: 'Premium Market', img: 'https://images.unsplash.com/photo-1514214246283-d427a95c5d2f?auto=format&fit=crop&w=300&q=80' },
-            { name: 'Scottsdale', price: 'Avg $5,200', type: 'Growth Hub', img: 'https://images.unsplash.com/photo-1531218150217-54595bc2b934?auto=format&fit=crop&w=300&q=80' }
+                        popularCities: [
+            { name: 'Los Angeles', state: 'California', price: 'Avg $5,800', type: 'Premium Market', img: '/assets/images/cities/optimized/los-angeles-medium.webp' },
+            { name: 'Houston', state: 'Texas', price: 'Avg $4,900', type: 'Value Market', img: '/assets/images/cities/optimized/houston-medium.webp' },
+            { name: 'Tijuana', state: 'Mexico', price: 'Avg $3,500', type: 'Medical Tourism', img: '/assets/images/cities/optimized/tijuana-medium.webp' },
+            { name: 'Miami', state: 'Florida', price: 'Avg $6,100', type: 'Premium Market', img: '/assets/images/cities/optimized/miami-medium.webp' },
+            { name: 'Scottsdale', state: 'Arizona', price: 'Avg $5,200', type: 'Growth Hub', img: '/assets/images/cities/optimized/scottsdale-medium.webp' }
         ],
 
         getCities() {
