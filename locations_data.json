@@ -1,0 +1,236 @@
+{
+  "states": [
+    "Alaska",
+    "Arizona",
+    "California",
+    "Colorado",
+    "Florida",
+    "Georgia",
+    "Hawaii",
+    "Idaho",
+    "Illinois",
+    "Indiana",
+    "Kentucky",
+    "Maryland",
+    "Massachusetts",
+    "Michigan",
+    "Minnesota",
+    "Missouri",
+    "Nevada",
+    "New Mexico",
+    "New York",
+    "North Carolina",
+    "Ohio",
+    "Oklahoma",
+    "Oregon",
+    "Pennsylvania",
+    "Tennessee",
+    "Texas",
+    "Utah",
+    "Washington",
+    "Washington DC",
+    "Wisconsin"
+  ],
+  "cities": [
+    {
+      "city": "Anchorage",
+      "state": "Alaska"
+    },
+    {
+      "city": "Phoenix",
+      "state": "Arizona"
+    },
+    {
+      "city": "Tucson",
+      "state": "Arizona"
+    },
+    {
+      "city": "Scottsdale",
+      "state": "Arizona"
+    },
+    {
+      "city": "Los Angeles",
+      "state": "California"
+    },
+    {
+      "city": "San Diego",
+      "state": "California"
+    },
+    {
+      "city": "San Jose",
+      "state": "California"
+    },
+    {
+      "city": "San Francisco",
+      "state": "California"
+    },
+    {
+      "city": "Fresno",
+      "state": "California"
+    },
+    {
+      "city": "Sacramento",
+      "state": "California"
+    },
+    {
+      "city": "Denver",
+      "state": "Colorado"
+    },
+    {
+      "city": "Jacksonville",
+      "state": "Florida"
+    },
+    {
+      "city": "Miami",
+      "state": "Florida"
+    },
+    {
+      "city": "Tampa",
+      "state": "Florida"
+    },
+    {
+      "city": "Orlando",
+      "state": "Florida"
+    },
+    {
+      "city": "Atlanta",
+      "state": "Georgia"
+    },
+    {
+      "city": "Honolulu",
+      "state": "Hawaii"
+    },
+    {
+      "city": "Boise",
+      "state": "Idaho"
+    },
+    {
+      "city": "Chicago",
+      "state": "Illinois"
+    },
+    {
+      "city": "Indianapolis",
+      "state": "Indiana"
+    },
+    {
+      "city": "Louisville",
+      "state": "Kentucky"
+    },
+    {
+      "city": "Baltimore",
+      "state": "Maryland"
+    },
+    {
+      "city": "Boston",
+      "state": "Massachusetts"
+    },
+    {
+      "city": "Detroit",
+      "state": "Michigan"
+    },
+    {
+      "city": "Minneapolis",
+      "state": "Minnesota"
+    },
+    {
+      "city": "St. Louis",
+      "state": "Missouri"
+    },
+    {
+      "city": "Kansas City",
+      "state": "Missouri"
+    },
+    {
+      "city": "Las Vegas",
+      "state": "Nevada"
+    },
+    {
+      "city": "Albuquerque",
+      "state": "New Mexico"
+    },
+    {
+      "city": "New York City",
+      "state": "New York"
+    },
+    {
+      "city": "Charlotte",
+      "state": "North Carolina"
+    },
+    {
+      "city": "Raleigh",
+      "state": "North Carolina"
+    },
+    {
+      "city": "Columbus",
+      "state": "Ohio"
+    },
+    {
+      "city": "Cleveland",
+      "state": "Ohio"
+    },
+    {
+      "city": "Cincinnati",
+      "state": "Ohio"
+    },
+    {
+      "city": "Oklahoma City",
+      "state": "Oklahoma"
+    },
+    {
+      "city": "Portland",
+      "state": "Oregon"
+    },
+    {
+      "city": "Philadelphia",
+      "state": "Pennsylvania"
+    },
+    {
+      "city": "Pittsburgh",
+      "state": "Pennsylvania"
+    },
+    {
+      "city": "Nashville",
+      "state": "Tennessee"
+    },
+    {
+      "city": "Memphis",
+      "state": "Tennessee"
+    },
+    {
+      "city": "Houston",
+      "state": "Texas"
+    },
+    {
+      "city": "San Antonio",
+      "state": "Texas"
+    },
+    {
+      "city": "Dallas",
+      "state": "Texas"
+    },
+    {
+      "city": "Austin",
+      "state": "Texas"
+    },
+    {
+      "city": "Fort Worth",
+      "state": "Texas"
+    },
+    {
+      "city": "Salt Lake City",
+      "state": "Utah"
+    },
+    {
+      "city": "Seattle",
+      "state": "Washington"
+    },
+    {
+      "city": "Washington",
+      "state": "Washington DC"
+    },
+    {
+      "city": "Milwaukee",
+      "state": "Wisconsin"
+    }
+  ]
+}
