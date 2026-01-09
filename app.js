@@ -1,4 +1,4 @@
-// OrthoFinder - Main Application
+// StemCellPrices.com - Main Application
 // Alpine.js SPA with client-side routing
 // Data Updated: January 2026 - Comprehensive clinic database with 285 clinics across 50 US cities
 

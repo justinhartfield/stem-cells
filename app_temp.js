@@ -1,4 +1,4 @@
-// OrthoFinder - Main Application
+// StemCellPrices.com - Main Application
 // Alpine.js SPA with client-side routing
 // Data Updated: January 2026 - Real researched data
 
