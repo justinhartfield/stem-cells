@@ -680,8 +680,8 @@ def generate_clinic_page(data, state_slug, city_slug, filepath):
                     <ul class="space-y-2">
                         <li><a href="/#cost-guide" class="text-gray-400 hover:text-blue-400 text-sm">Cost Guide</a></li>
                         <li><a href="/locations/" class="text-gray-400 hover:text-blue-400 text-sm">All Locations</a></li>
-                        <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-blue-400 text-sm">Privacy Policy</a></li>
-                        <li><a href="/terms-of-service.html" class="text-gray-400 hover:text-blue-400 text-sm">Terms of Service</a></li>
+                        <li><a href="/privacy-policy/" class="text-gray-400 hover:text-blue-400 text-sm">Privacy Policy</a></li>
+                        <li><a href="/terms-of-service/" class="text-gray-400 hover:text-blue-400 text-sm">Terms of Service</a></li>
                     </ul>
                 </div>
             </div>

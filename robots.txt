@@ -1,11 +1,11 @@
-# OrthoFinder Robots.txt
+# StemCellPrices.com Robots.txt
 # Stem Cell Therapy Cost Directory
 
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://orthofinder.com/sitemap.xml
+Sitemap: https://stemcellprices.com/sitemap.xml
 
 # Allow all major search engines
 User-agent: Googlebot
