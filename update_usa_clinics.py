@@ -267,7 +267,7 @@ def generate_clinic_page(data, state_slug, city_slug, filepath):
                 </a>'''
 
     # Try to use city-specific background image, fallback to state or generic
-    city_bg = f'/assets/images/cities/{city_slug}.jpg'
+    city_bg = f'/assets/images/cities/{city_slug}-large.webp'
 
     html = f'''<!DOCTYPE html>
 <html lang="en">
