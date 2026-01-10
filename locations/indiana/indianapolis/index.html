@@ -10,8 +10,25 @@
     <meta property="og:description" content="Find 2 verified stem cell therapy clinics in Indianapolis, Indiana. Average cost $4,600. Compare prices and find the best regenerative medicine providers.">
     <meta property="og:type" content="website">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
+        [x-cloak] { display: none !important; }
         .hero-gradient { background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 58, 138, 0.8) 100%); }
         .card-hover { transition: all 0.3s ease; }
         .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
@@ -133,17 +150,51 @@
     </form>
 
 
-    <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50">
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200" x-data="{ mobileMenu: false, locationsOpen: false }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="/" class="text-xl font-bold text-blue-900">StemCellPrices.com<span class="text-blue-500">.</span></a>
+            <div class="flex justify-between h-16 items-center">
+                <a href="/" class="flex items-center gap-2">
+                    <img src="/assets/images/logo-icon.png" alt="StemCellPrices.com" class="w-8 h-8 rounded-lg">
+                    <span class="text-xl font-bold tracking-tight text-slate-900">StemCellPrices.com<span class="text-brand-600">.</span></span>
+                </a>
+                <div class="hidden md:flex space-x-8 text-sm font-semibold text-slate-600">
+                    <a href="/" class="hover:text-brand-600 transition">Find Clinics</a>
+                    <a href="/#cost-guide" class="hover:text-brand-600 transition">Cost Guide</a>
+                    <a href="/conditions/" class="hover:text-brand-600 transition">Conditions</a>
+                    <div class="relative" @mouseenter="locationsOpen = true" @mouseleave="locationsOpen = false">
+                        <a href="/locations/" class="hover:text-brand-600 transition inline-flex items-center gap-1">Locations <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></a>
+                        <div x-show="locationsOpen" x-cloak class="absolute top-full left-0 pt-0 w-64 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50 max-h-96 overflow-y-auto">
+                            <a href="/locations/" class="block px-4 py-2 text-sm font-bold text-brand-600 hover:bg-brand-50">View All 30 States &rarr;</a>
+                            <div class="border-t border-slate-100 my-2"></div>
+                            <a href="/locations/california/" class="block px-4 py-2 text-sm text-slate-600 hover:bg-brand-50 hover:text-brand-600">California</a>
+                            <a href="/locations/texas/" class="block px-4 py-2 text-sm text-slate-600 hover:bg-brand-50 hover:text-brand-600">Texas</a>
+                            <a href="/locations/florida/" class="block px-4 py-2 text-sm text-slate-600 hover:bg-brand-50 hover:text-brand-600">Florida</a>
+                            <a href="/locations/new-york/" class="block px-4 py-2 text-sm text-slate-600 hover:bg-brand-50 hover:text-brand-600">New York</a>
+                            <a href="/locations/arizona/" class="block px-4 py-2 text-sm text-slate-600 hover:bg-brand-50 hover:text-brand-600">Arizona</a>
+                            <a href="/locations/colorado/" class="block px-4 py-2 text-sm text-slate-600 hover:bg-brand-50 hover:text-brand-600">Colorado</a>
+                            <a href="/locations/illinois/" class="block px-4 py-2 text-sm text-slate-600 hover:bg-brand-50 hover:text-brand-600">Illinois</a>
+                            <a href="/locations/georgia/" class="block px-4 py-2 text-sm text-slate-600 hover:bg-brand-50 hover:text-brand-600">Georgia</a>
+                            <a href="/locations/washington/" class="block px-4 py-2 text-sm text-slate-600 hover:bg-brand-50 hover:text-brand-600">Washington</a>
+                            <a href="/locations/massachusetts/" class="block px-4 py-2 text-sm text-slate-600 hover:bg-brand-50 hover:text-brand-600">Massachusetts</a>
+                            <div class="border-t border-slate-100 my-2"></div>
+                            <p class="px-4 py-1 text-xs text-slate-400 uppercase tracking-wider">International</p>
+                            <a href="/locations/mexico/" class="block px-4 py-2 text-sm text-slate-600 hover:bg-brand-50 hover:text-brand-600">Mexico</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="/" class="text-slate-600 hover:text-blue-600">Home</a>
-                    <a href="/#cost-guide" class="text-slate-600 hover:text-blue-600">Cost Guide</a>
-                    <a href="/locations/" class="text-slate-600 hover:text-blue-600">All Locations</a>
-                    <a href="/#mexico" class="text-slate-600 hover:text-blue-600">Mexico Clinics</a>
+                <div class="flex items-center gap-4">
+                    <a href="/#clinic-login" class="hidden sm:block text-sm font-bold text-brand-700 bg-brand-50 px-4 py-2 rounded-full hover:bg-brand-100 transition">Clinic Login</a>
+                    <button class="md:hidden p-2" @click="mobileMenu = !mobileMenu">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                </div>
+            </div>
+            <div x-show="mobileMenu" x-cloak class="md:hidden py-4 border-t border-slate-100">
+                <div class="flex flex-col space-y-3">
+                    <a href="/" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-brand-50 rounded-lg">Find Clinics</a>
+                    <a href="/#cost-guide" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-brand-50 rounded-lg">Cost Guide</a>
+                    <a href="/conditions/" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-brand-50 rounded-lg">Conditions</a>
+                    <a href="/locations/" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-brand-50 rounded-lg">Locations</a>
                 </div>
             </div>
         </div>
