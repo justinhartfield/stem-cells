@@ -490,21 +490,135 @@
                             </div>
 
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                                <!-- Map Placeholder -->
-                                <div class="bg-slate-800/50 rounded-3xl p-8 border border-slate-700/50 aspect-video flex flex-col items-center justify-center relative overflow-hidden group">
-                                    <svg class="w-full h-full text-slate-700 opacity-60 transition-transform group-hover:scale-105 duration-700" viewBox="0 0 800 500" fill="currentColor">
-                                        <path d="M120 150 L150 140 L200 160 L250 150 L300 170 L350 160 L400 180 L450 170 L500 190 L550 180 L600 200 L650 190 L700 210 L700 350 L650 370 L600 360 L550 380 L500 370 L450 390 L400 380 L350 400 L300 390 L250 410 L200 400 L150 420 L120 410 Z" />
-                                        <circle cx="180" cy="220" r="40" fill="#2563eb" opacity="0.4" />
-                                        <circle cx="600" cy="250" r="60" fill="#0ea5e9" opacity="0.3" />
-                                        <circle cx="450" cy="320" r="30" fill="#1d4ed8" opacity="0.5" />
+                                <!-- US + Mexico Price Heatmap -->
+                                <div class="bg-slate-800/50 rounded-3xl p-6 border border-slate-700/50 relative overflow-hidden group">
+                                    <svg class="w-full h-auto" viewBox="0 0 960 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- US States Outline (simplified) -->
+                                        <g fill="#334155" stroke="#475569" stroke-width="0.5">
+                                            <!-- West Coast -->
+                                            <path d="M78 45 L95 42 L115 85 L125 130 L120 180 L100 220 L85 190 L75 140 L70 90 Z" /> <!-- WA -->
+                                            <path d="M85 190 L100 220 L115 280 L100 330 L80 300 L75 250 L80 220 Z" /> <!-- OR -->
+                                            <path d="M80 300 L100 330 L130 420 L145 480 L120 500 L90 470 L75 400 L70 340 Z" /> <!-- CA -->
+                                            <!-- Mountain -->
+                                            <path d="M125 130 L180 125 L195 180 L175 230 L130 220 L120 180 Z" /> <!-- ID -->
+                                            <path d="M130 220 L175 230 L200 300 L180 340 L140 330 L115 280 Z" /> <!-- NV -->
+                                            <path d="M180 125 L250 115 L260 180 L245 230 L195 220 L195 180 Z" /> <!-- MT -->
+                                            <path d="M195 220 L245 230 L255 290 L235 330 L200 320 L200 300 Z" /> <!-- WY -->
+                                            <path d="M200 320 L235 330 L250 400 L220 420 L190 400 L180 340 Z" /> <!-- CO -->
+                                            <path d="M140 330 L180 340 L190 400 L170 450 L130 440 L130 420 Z" /> <!-- UT -->
+                                            <path d="M130 440 L170 450 L180 500 L145 520 L120 500 L130 450 Z" /> <!-- AZ -->
+                                            <path d="M180 500 L220 510 L240 540 L200 560 L170 540 L180 510 Z" /> <!-- NM -->
+                                            <!-- Central -->
+                                            <path d="M260 180 L330 170 L340 230 L320 280 L255 290 L260 230 Z" /> <!-- ND/SD -->
+                                            <path d="M255 290 L320 280 L335 350 L310 390 L250 400 L250 340 Z" /> <!-- NE/KS -->
+                                            <path d="M250 400 L310 390 L330 450 L300 480 L240 480 L240 440 Z" /> <!-- OK -->
+                                            <path d="M240 480 L300 480 L340 560 L280 590 L220 560 L220 520 Z" /> <!-- TX -->
+                                            <!-- Midwest -->
+                                            <path d="M340 230 L400 220 L420 270 L400 310 L355 310 L340 280 Z" /> <!-- MN/IA -->
+                                            <path d="M355 310 L400 310 L420 360 L390 400 L350 390 L335 350 Z" /> <!-- MO -->
+                                            <path d="M350 390 L390 400 L410 450 L380 480 L340 470 L330 430 Z" /> <!-- AR -->
+                                            <path d="M340 470 L380 480 L400 530 L360 560 L330 540 L330 500 Z" /> <!-- LA -->
+                                            <!-- Great Lakes -->
+                                            <path d="M420 180 L480 170 L500 210 L490 250 L450 260 L420 230 Z" /> <!-- WI/MI-UP -->
+                                            <path d="M500 210 L560 200 L575 250 L555 290 L510 280 L490 250 Z" /> <!-- MI -->
+                                            <path d="M420 270 L450 260 L490 280 L480 320 L440 330 L420 310 Z" /> <!-- IL -->
+                                            <path d="M480 320 L510 310 L530 350 L510 380 L470 370 L460 340 Z" /> <!-- IN/OH -->
+                                            <!-- South -->
+                                            <path d="M410 450 L470 440 L500 490 L460 520 L420 510 L400 480 Z" /> <!-- MS/AL -->
+                                            <path d="M460 520 L500 510 L540 550 L500 580 L460 560 L450 540 Z" /> <!-- FL-pan -->
+                                            <path d="M540 550 L580 540 L620 600 L570 610 L530 580 Z" /> <!-- FL -->
+                                            <!-- East -->
+                                            <path d="M530 350 L580 340 L600 380 L575 410 L540 400 L520 370 Z" /> <!-- KY/TN -->
+                                            <path d="M540 400 L575 410 L600 450 L565 480 L530 460 L520 430 Z" /> <!-- NC -->
+                                            <path d="M530 460 L565 480 L580 520 L545 540 L510 520 L500 490 Z" /> <!-- SC/GA -->
+                                            <path d="M575 250 L630 240 L650 280 L630 320 L590 310 L575 280 Z" /> <!-- PA -->
+                                            <path d="M590 310 L630 320 L650 360 L620 390 L585 370 L580 340 Z" /> <!-- WV/VA -->
+                                            <path d="M620 390 L650 380 L670 420 L640 450 L610 430 L600 410 Z" /> <!-- MD/DE -->
+                                            <!-- Northeast -->
+                                            <path d="M650 200 L700 190 L720 230 L700 270 L660 260 L650 230 Z" /> <!-- NY -->
+                                            <path d="M660 260 L700 270 L720 300 L690 330 L655 310 L650 280 Z" /> <!-- NJ/CT -->
+                                            <path d="M700 190 L750 175 L770 210 L750 250 L720 240 L710 210 Z" /> <!-- New England -->
+                                        </g>
+                                        <!-- Mexico (simplified) -->
+                                        <g fill="#1e3a5f" stroke="#475569" stroke-width="0.5">
+                                            <path d="M120 520 L200 560 L280 590 L340 580 L320 620 L260 640 L180 630 L120 600 L100 560 Z" />
+                                            <path d="M180 630 L260 640 L300 680 L240 700 L180 680 L160 650 Z" />
+                                        </g>
+
+                                        <!-- Heat spots - based on real city prices -->
+                                        <!-- Lower cost (green/teal) to Higher cost (orange/red) -->
+
+                                        <!-- Mexico - Lowest costs ($3,500-4,500) - Bright Green -->
+                                        <circle cx="200" cy="600" r="28" fill="url(#heatGreen)" opacity="0.8"><title>Tijuana - Avg $3,500</title></circle>
+                                        <circle cx="260" cy="650" r="22" fill="url(#heatGreen)" opacity="0.7"><title>Cancun - Avg $4,000</title></circle>
+                                        <circle cx="220" cy="680" r="20" fill="url(#heatGreen)" opacity="0.7"><title>Puerto Vallarta - Avg $4,200</title></circle>
+
+                                        <!-- Low cost cities ($4,500-5,500) - Teal/Cyan -->
+                                        <circle cx="185" cy="510" r="20" fill="url(#heatTeal)" opacity="0.7"><title>Phoenix - Avg $4,950</title></circle>
+                                        <circle cx="195" cy="480" r="16" fill="url(#heatTeal)" opacity="0.65"><title>Scottsdale - Avg $5,225</title></circle>
+                                        <circle cx="290" cy="530" r="18" fill="url(#heatTeal)" opacity="0.7"><title>Houston - Avg $4,950</title></circle>
+                                        <circle cx="260" cy="490" r="16" fill="url(#heatTeal)" opacity="0.65"><title>Dallas - Avg $4,950</title></circle>
+                                        <circle cx="250" cy="520" r="14" fill="url(#heatTeal)" opacity="0.6"><title>Austin - Avg $5,225</title></circle>
+                                        <circle cx="235" cy="550" r="14" fill="url(#heatTeal)" opacity="0.6"><title>San Antonio - Avg $4,950</title></circle>
+                                        <circle cx="385" cy="400" r="15" fill="url(#heatTeal)" opacity="0.65"><title>Kansas City - Avg $5,225</title></circle>
+                                        <circle cx="430" cy="440" r="14" fill="url(#heatTeal)" opacity="0.6"><title>Nashville - Avg $5,225</title></circle>
+                                        <circle cx="540" cy="480" r="16" fill="url(#heatTeal)" opacity="0.65"><title>Atlanta - Avg $4,950</title></circle>
+                                        <circle cx="390" cy="350" r="14" fill="url(#heatTeal)" opacity="0.6"><title>Minneapolis - Avg $5,500</title></circle>
+
+                                        <!-- Medium cost cities ($5,500-6,500) - Blue -->
+                                        <circle cx="110" cy="380" r="22" fill="url(#heatBlue)" opacity="0.7"><title>Los Angeles - Avg $5,500</title></circle>
+                                        <circle cx="95" cy="320" r="16" fill="url(#heatBlue)" opacity="0.65"><title>San Francisco - Avg $6,050</title></circle>
+                                        <circle cx="100" cy="280" r="14" fill="url(#heatBlue)" opacity="0.6"><title>Sacramento - Avg $5,500</title></circle>
+                                        <circle cx="130" cy="450" r="18" fill="url(#heatBlue)" opacity="0.7"><title>San Diego - Avg $5,775</title></circle>
+                                        <circle cx="115" cy="340" r="14" fill="url(#heatBlue)" opacity="0.6"><title>San Jose - Avg $5,775</title></circle>
+                                        <circle cx="165" cy="395" r="14" fill="url(#heatBlue)" opacity="0.6"><title>Las Vegas - Avg $5,775</title></circle>
+                                        <circle cx="210" cy="380" r="14" fill="url(#heatBlue)" opacity="0.6"><title>Denver - Avg $5,500</title></circle>
+                                        <circle cx="85" cy="200" r="16" fill="url(#heatBlue)" opacity="0.65"><title>Seattle - Avg $5,775</title></circle>
+                                        <circle cx="95" cy="260" r="12" fill="url(#heatBlue)" opacity="0.55"><title>Portland - Avg $5,500</title></circle>
+                                        <circle cx="440" cy="310" r="18" fill="url(#heatBlue)" opacity="0.7"><title>Chicago - Avg $5,775</title></circle>
+                                        <circle cx="490" cy="310" r="14" fill="url(#heatBlue)" opacity="0.6"><title>Detroit - Avg $5,500</title></circle>
+                                        <circle cx="600" cy="320" r="14" fill="url(#heatBlue)" opacity="0.6"><title>Philadelphia - Avg $6,050</title></circle>
+                                        <circle cx="520" cy="430" r="14" fill="url(#heatBlue)" opacity="0.6"><title>Charlotte - Avg $5,500</title></circle>
+                                        <circle cx="510" cy="400" r="12" fill="url(#heatBlue)" opacity="0.55"><title>Raleigh - Avg $5,775</title></circle>
+                                        <circle cx="360" cy="540" r="14" fill="url(#heatBlue)" opacity="0.6"><title>New Orleans - Avg $5,500</title></circle>
+
+                                        <!-- Higher cost cities ($6,500+) - Purple/Pink -->
+                                        <circle cx="570" cy="580" r="24" fill="url(#heatPurple)" opacity="0.75"><title>Miami - Avg $6,325</title></circle>
+                                        <circle cx="540" cy="540" r="16" fill="url(#heatPurple)" opacity="0.65"><title>Tampa - Avg $5,775</title></circle>
+                                        <circle cx="520" cy="520" r="14" fill="url(#heatPurple)" opacity="0.6"><title>Orlando - Avg $5,500</title></circle>
+                                        <circle cx="505" cy="550" r="12" fill="url(#heatPurple)" opacity="0.55"><title>Jacksonville - Avg $5,500</title></circle>
+                                        <circle cx="680" cy="260" r="26" fill="url(#heatPurple)" opacity="0.8"><title>New York - Avg $6,600</title></circle>
+                                        <circle cx="710" cy="220" r="18" fill="url(#heatPurple)" opacity="0.7"><title>Boston - Avg $6,600</title></circle>
+
+                                        <!-- Gradient definitions -->
+                                        <defs>
+                                            <radialGradient id="heatGreen">
+                                                <stop offset="0%" stop-color="#10b981" stop-opacity="1"/>
+                                                <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
+                                            </radialGradient>
+                                            <radialGradient id="heatTeal">
+                                                <stop offset="0%" stop-color="#06b6d4" stop-opacity="1"/>
+                                                <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+                                            </radialGradient>
+                                            <radialGradient id="heatBlue">
+                                                <stop offset="0%" stop-color="#3b82f6" stop-opacity="1"/>
+                                                <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+                                            </radialGradient>
+                                            <radialGradient id="heatPurple">
+                                                <stop offset="0%" stop-color="#8b5cf6" stop-opacity="1"/>
+                                                <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
+                                            </radialGradient>
+                                        </defs>
+
+                                        <!-- Labels for Mexico -->
+                                        <text x="200" y="620" fill="#10b981" font-size="10" font-weight="bold" text-anchor="middle">MEXICO</text>
                                     </svg>
-                                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
-                                    <div class="absolute bottom-6 left-6 right-6 flex justify-between items-center">
+                                    <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center">
                                         <span class="text-xs font-bold text-slate-400 tracking-widest uppercase">Live Price Heatmap</span>
                                         <div class="flex items-center gap-2">
-                                            <span class="text-[10px] text-slate-500">Lower Cost</span>
-                                            <div class="w-24 h-2 bg-gradient-to-r from-sky-400 to-brand-700 rounded-full"></div>
-                                            <span class="text-[10px] text-slate-500">Higher Cost</span>
+                                            <span class="text-[10px] text-slate-500">$3.5K</span>
+                                            <div class="w-32 h-2 bg-gradient-to-r from-emerald-400 via-cyan-400 via-blue-500 to-purple-500 rounded-full"></div>
+                                            <span class="text-[10px] text-slate-500">$6.5K+</span>
                                         </div>
                                     </div>
                                 </div>

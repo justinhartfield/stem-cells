@@ -1035,27 +1035,35 @@ function homePage() {
 
         performSearch() {
             if (this.condition && this.state && this.city) {
-                const cityKey = this.city.toLowerCase().replace(/ /g, '_').replace(/\./g, '');
+                // Navigate to actual static location pages
+                const stateSlug = this.state.toLowerCase().replace(/\s+/g, '-').replace(/[()]/g, '');
+                const citySlug = this.city.toLowerCase().replace(/\s+/g, '-').replace(/\./g, '');
+
                 if (this.state === 'Mexico (Tourism)') {
-                    this.$dispatch('navigate', 'mexico-comparison');
-                } else if (CLINIC_DATABASE.cities[cityKey]) {
-                    window.selectedCity = cityKey;
-                    this.$dispatch('navigate', 'city-directory');
+                    // Mexico cities
+                    window.location.href = `/locations/mexico/${citySlug}/`;
                 } else {
-                    this.$dispatch('navigate', 'california-directory');
+                    // US cities - redirect to static location page
+                    window.location.href = `/locations/${stateSlug}/${citySlug}/`;
                 }
             }
         },
 
         navigateToCity(cityName) {
-            const cityKey = cityName.toLowerCase().replace(/ /g, '_').replace(/\./g, '');
-            if (cityName === 'Tijuana' || cityName === 'Cancun' || cityName === 'Mexico City') {
-                this.$dispatch('navigate', 'mexico-comparison');
-            } else if (CLINIC_DATABASE.cities[cityKey]) {
-                window.selectedCity = cityKey;
-                this.$dispatch('navigate', 'city-directory');
+            const citySlug = cityName.toLowerCase().replace(/\s+/g, '-').replace(/\./g, '');
+            if (cityName === 'Tijuana' || cityName === 'Cancun' || cityName === 'Puerto Vallarta' || cityName === 'Mexico City') {
+                window.location.href = `/locations/mexico/${citySlug}/`;
             } else {
-                this.$dispatch('navigate', 'california-directory');
+                // For other cities, determine state from database
+                const cityKey = cityName.toLowerCase().replace(/ /g, '_').replace(/\./g, '');
+                if (CLINIC_DATABASE.cities[cityKey]) {
+                    const cityData = CLINIC_DATABASE.cities[cityKey];
+                    const stateSlug = cityData.state.toLowerCase().replace(/\s+/g, '-');
+                    window.location.href = `/locations/${stateSlug}/${citySlug}/`;
+                } else {
+                    // Fallback to California
+                    window.location.href = `/locations/california/${citySlug}/`;
+                }
             }
         }
     };
@@ -1405,6 +1413,19 @@ function laKneeResultsPage() {
             }
         ],
 
+        getClinicSlug(name) {
+            return name.toLowerCase()
+                .replace(/[.,()]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '');
+        },
+
+        viewClinic(clinic) {
+            const clinicSlug = this.getClinicSlug(clinic.name);
+            window.location.href = `/locations/california/los-angeles/${clinicSlug}`;
+        },
+
         init() {
             this.$nextTick(() => this.renderContent());
         },
@@ -1435,7 +1456,7 @@ function laKneeResultsPage() {
 
                         <div class="space-y-4">
                             <template x-for="clinic in clinics" :key="clinic.name">
-                                <div :class="clinic.featured ? 'featured-card' : 'border border-slate-200'" class="bg-white rounded-3xl p-6 hover:shadow-lg transition-all cursor-pointer" @click="$dispatch('navigate', 'clinic-profile')">
+                                <div :class="clinic.featured ? 'featured-card' : 'border border-slate-200'" class="bg-white rounded-3xl p-6 hover:shadow-lg transition-all cursor-pointer" @click="viewClinic(clinic)">
                                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                                         <div class="flex-1">
                                             <div class="flex items-center gap-2 mb-2">
@@ -1769,6 +1790,19 @@ function laDirectoryPage() {
             }
         ],
 
+        getClinicSlug(name) {
+            return name.toLowerCase()
+                .replace(/[.,()]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '');
+        },
+
+        viewClinic(clinic) {
+            const clinicSlug = this.getClinicSlug(clinic.name);
+            window.location.href = `/locations/california/los-angeles/${clinicSlug}`;
+        },
+
         init() {
             this.$nextTick(() => this.renderContent());
         },
@@ -1799,7 +1833,7 @@ function laDirectoryPage() {
 
                         <div class="space-y-4">
                             <template x-for="clinic in clinics" :key="clinic.name">
-                                <div :class="clinic.featured ? 'featured-card' : 'border border-slate-200'" class="bg-white rounded-3xl p-6 hover:shadow-lg transition-all cursor-pointer" @click="$dispatch('navigate', 'clinic-profile')">
+                                <div :class="clinic.featured ? 'featured-card' : 'border border-slate-200'" class="bg-white rounded-3xl p-6 hover:shadow-lg transition-all cursor-pointer" @click="viewClinic(clinic)">
                                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                                         <div>
                                             <div class="flex items-center gap-2 mb-2">
@@ -2080,16 +2114,40 @@ function cityDirectoryPage() {
             return colors[index];
         },
 
+        getClinicSlug(name) {
+            return name.toLowerCase()
+                .replace(/[.,()]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '');
+        },
+
+        getStateSlug(state) {
+            return state.toLowerCase().replace(/\s+/g, '-');
+        },
+
+        getCitySlug(city) {
+            return city.toLowerCase().replace(/\s+/g, '-').replace(/\./g, '');
+        },
+
         viewClinic(clinic) {
-            window.selectedClinic = clinic;
-            this.$dispatch('navigate', 'clinic-profile');
+            const stateSlug = this.getStateSlug(this.cityData.state);
+            const citySlug = this.getCitySlug(this.cityData.cityName);
+            const clinicSlug = this.getClinicSlug(clinic.name);
+            window.location.href = `/locations/${stateSlug}/${citySlug}/${clinicSlug}`;
         },
 
         renderContent() {
             if (!this.cityData) return;
 
-            const clinicsHtml = this.cityData.clinics.map((clinic, index) => `
-                <div class="bg-white rounded-3xl p-6 border ${clinic.featured ? 'border-brand-200 featured-card' : 'border-slate-200'} hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer group" onclick="window.selectedClinic = ${JSON.stringify(clinic).replace(/"/g, '&quot;')}; window.dispatchEvent(new CustomEvent('navigate', {detail: 'clinic-profile'}))">
+            const stateSlug = this.getStateSlug(this.cityData.state);
+            const citySlug = this.getCitySlug(this.cityData.cityName);
+
+            const clinicsHtml = this.cityData.clinics.map((clinic, index) => {
+                const clinicSlug = this.getClinicSlug(clinic.name);
+                const clinicUrl = `/locations/${stateSlug}/${citySlug}/${clinicSlug}`;
+                return `
+                <div class="bg-white rounded-3xl p-6 border ${clinic.featured ? 'border-brand-200 featured-card' : 'border-slate-200'} hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer group" onclick="window.location.href='${clinicUrl}'">
                     <div class="flex gap-4 mb-4">
                         <div class="w-16 h-16 rounded-2xl bg-gradient-to-br ${this.getClinicColor(clinic.name)} flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
                             ${this.getClinicInitials(clinic.name)}
@@ -2110,7 +2168,8 @@ function cityDirectoryPage() {
                         <svg class="w-5 h-5 text-slate-400 group-hover:text-brand-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </div>
                 </div>
-            `).join('');
+            `;
+            }).join('');
 
             this.$el.innerHTML = `
                 <section class="py-8 md:py-12">
