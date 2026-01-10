@@ -51,6 +51,7 @@
         ]
     }
     </script>
+    <script src="/assets/js/clinic-gallery.js"></script>
 </head>
 <body class="bg-gray-50">
     <!-- Header -->
@@ -71,8 +72,9 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="relative bg-gradient-to-r from-teal-600 to-teal-800 text-white py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="relative bg-cover bg-center text-white py-16" style="background-image: url('/assets/images/cities/cancun.jpg');">
+        <div class="absolute inset-0 bg-gradient-to-r from-teal-900/90 to-teal-700/80"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Breadcrumb -->
             <nav class="mb-6">
                 <ol class="flex items-center space-x-2 text-sm text-teal-200">
@@ -111,6 +113,7 @@
                 </div>
             </div>
         </div>
+            </div>
     </section>
 
     <!-- Main Content -->
@@ -118,6 +121,73 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Left Column - Clinic Details -->
             <div class="lg:col-span-2 space-y-8">
+                <!-- Clinic Gallery -->
+                <div class="bg-white rounded-xl shadow-sm p-6" x-data="clinicGallery('blue-medical-cancun')" x-init="init()" @keydown.window="handleKeydown($event)">
+                    <!-- Loading state -->
+                    <template x-if="loading">
+                        <div class="w-full h-64 bg-slate-100 rounded-xl animate-pulse flex items-center justify-center">
+                            <svg class="w-8 h-8 text-slate-300 animate-spin" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </div>
+                    </template>
+
+                    <!-- Gallery content -->
+                    <template x-if="!loading && images.length > 0">
+                        <div>
+                            <div class="relative rounded-xl overflow-hidden cursor-pointer group" @click="openLightbox(0)">
+                                <img :src="images[0]?.url" :alt="images[0]?.alt" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105">
+                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                                    <span class="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 px-4 py-2 rounded-full text-sm font-medium text-slate-700">View Photos</span>
+                                </div>
+                                <template x-if="hasMultipleImages">
+                                    <div class="absolute bottom-3 right-3 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                        <span x-text="images.length"></span> Photos
+                                    </div>
+                                </template>
+                            </div>
+                            <template x-if="hasMultipleImages">
+                                <div class="flex gap-2 mt-3 overflow-x-auto pb-2">
+                                    <template x-for="(image, index) in images" :key="index">
+                                        <button @click="openLightbox(index)" class="flex-shrink-0 w-20 h-16 rounded-lg overflow-hidden border-2 transition-all" :class="index === 0 ? 'border-teal-500' : 'border-transparent hover:border-slate-300'">
+                                            <img :src="image.url" :alt="image.alt" class="w-full h-full object-cover">
+                                        </button>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+
+                    <!-- Lightbox -->
+                    <template x-if="lightboxOpen">
+                        <div class="fixed inset-0 z-50 flex items-center justify-center" @click.self="closeLightbox()">
+                            <div class="absolute inset-0 bg-black/90"></div>
+                            <button @click="closeLightbox()" class="absolute top-4 right-4 z-10 text-white/80 hover:text-white p-2">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            </button>
+                            <template x-if="hasMultipleImages">
+                                <button @click="prevImage()" class="absolute left-4 z-10 text-white/80 hover:text-white p-2 bg-black/30 rounded-full">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                                </button>
+                            </template>
+                            <template x-if="hasMultipleImages">
+                                <button @click="nextImage()" class="absolute right-4 z-10 text-white/80 hover:text-white p-2 bg-black/30 rounded-full">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </button>
+                            </template>
+                            <div class="relative z-0 max-w-5xl max-h-[80vh] px-4">
+                                <img :src="currentImage?.url" :alt="currentImage?.alt" class="max-w-full max-h-[80vh] object-contain rounded-lg">
+                            </div>
+                            <template x-if="hasMultipleImages">
+                                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-4 py-2 rounded-full text-sm">
+                                    <span x-text="currentIndex + 1"></span> / <span x-text="images.length"></span>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+
                 <!-- About -->
                 <div class="bg-white rounded-xl shadow-sm p-6">
                     <h2 class="text-2xl font-bold text-gray-900 mb-4">About Blue Medical Cancun</h2>
