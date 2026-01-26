@@ -3,3 +3,4 @@ github_token.rtf
 
 # Local Netlify folder
 .netlify
+.claude/settings.local.json
