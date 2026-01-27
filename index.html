@@ -325,6 +325,7 @@
                     <a href="#" @click.prevent="navigate('home')" :class="currentPage === 'home' ? 'text-brand-600 border-b-2 border-brand-600' : 'hover:text-brand-600'" class="transition">Find Clinics</a>
                     <a href="#" @click.prevent="navigate('cost-index')" :class="currentPage === 'cost-index' ? 'text-brand-600 border-b-2 border-brand-600' : 'hover:text-brand-600'" class="transition">Cost Guide</a>
                     <a href="/conditions/" class="hover:text-brand-600 transition">Conditions</a>
+                    <a href="/blog/" class="hover:text-brand-600 transition">Blog</a>
                     <div class="relative" x-data="{ locationsOpen: false }" @mouseenter="locationsOpen = true" @mouseleave="locationsOpen = false">
                         <a href="/locations/" :class="currentPage.includes('directory') || currentPage === 'all-states' ? 'text-brand-600 border-b-2 border-brand-600' : 'hover:text-brand-600'" class="transition inline-flex items-center gap-1">Locations <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></a>
                         <div x-show="locationsOpen" x-cloak class="absolute top-full left-0 pt-0 w-64 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50 max-h-96 overflow-y-auto">
@@ -363,6 +364,7 @@
                     <a href="#" @click.prevent="navigate('home'); mobileMenu=false" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-brand-50 rounded-lg">Find Clinics</a>
                     <a href="#" @click.prevent="navigate('cost-index'); mobileMenu=false" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-brand-50 rounded-lg">Cost Guide</a>
                     <a href="/conditions/" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-brand-50 rounded-lg">Conditions</a>
+                    <a href="/blog/" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-brand-50 rounded-lg">Blog</a>
                     <a href="/locations/" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-brand-50 rounded-lg">Locations (30 States)</a>
                 </div>
             </div>
@@ -903,6 +905,7 @@
                 <div>
                     <h3 class="text-white font-semibold mb-4">Company</h3>
                     <ul class="space-y-2">
+                        <li><a href="/blog/" class="text-gray-400 hover:text-blue-400 text-sm">Blog</a></li>
                         <li><a href="/#cost-guide" class="text-gray-400 hover:text-blue-400 text-sm">Cost Guide</a></li>
                         <li><a href="/locations/" class="text-gray-400 hover:text-blue-400 text-sm">All Locations</a></li>
                         <li><a href="/privacy-policy/" class="text-gray-400 hover:text-blue-400 text-sm">Privacy Policy</a></li>
